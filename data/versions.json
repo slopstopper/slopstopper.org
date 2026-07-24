@@ -1,0 +1,9 @@
+{
+  "_comment": "Auto-maintained by .github/workflows/sync-versions.yml. Each tool's `version` is refreshed from the latest GitHub Release tag of its repo, then written into index.html (the <span data-sync=\"version:TOOL\"> pills). Edit `repo` here if a repo is renamed; edit `version` only as a manual fallback.",
+  "tools": {
+    "plumb-line": { "repo": "slopstopper/plumb-line", "version": "v0.7" },
+    "tokenomics": { "repo": "slopstopper/tokenomics", "version": "v0.3" },
+    "recursive-spine": { "repo": "slopstopper/recursive-spine", "version": "v0.8" }
+  },
+  "lastSynced": null
+}

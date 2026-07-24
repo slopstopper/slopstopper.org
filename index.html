@@ -88,7 +88,11 @@ a{color:inherit; text-decoration:none}
   width:0; height:0; pointer-events:none}
 .plumb{position:fixed; z-index:30; top:0; height:var(--plumbL); width:0;
   left:calc(max(0px, (100vw - var(--maxw)) / 2) + var(--edge) + var(--gutter)*0.5);
-  transform-origin:top center; will-change:transform; pointer-events:none}
+  transform-origin:top center; will-change:transform; pointer-events:none;
+  transition:opacity .4s ease}
+/* tuck the line away before it can cross the footer / closer text */
+.plumb.tucked{opacity:0}
+.plumb.tucked .grab{pointer-events:none}
 .plumb .string{position:absolute; top:0; bottom:34px; left:-1px; width:2px; border-radius:2px;
   background:linear-gradient(var(--hair-strong), var(--red) 55%, var(--red))}
 .plumb .bob{position:absolute; bottom:0; left:-8px; width:16px; height:34px; transition:transform .18s ease;
@@ -119,6 +123,13 @@ nav.links a::after{content:""; position:absolute; left:0; right:100%; bottom:-2p
   height:1px; background:var(--red); transition:right .28s ease}
 nav.links a:hover::after{right:0}
 @media(max-width:860px){nav.links a.hideable{display:none}}
+/* very narrow: tighten the bar so nothing spills off-screen */
+@media(max-width:420px){
+  .topbar .row{gap:.9rem}
+  nav.links{gap:.95rem; font-size:.68rem}
+  .ttog #tlbl{display:none}
+  .ttog{padding:.35rem .45rem}
+}
 .ttog{font-family:var(--mono); font-size:.7rem; text-transform:uppercase;
   letter-spacing:.08em; background:none; border:1px solid var(--hair);
   color:var(--muted); padding:.35rem .55rem; border-radius:100px; cursor:pointer;
@@ -247,13 +258,15 @@ p{margin:0 0 1.1rem}
 .more .note a{border-bottom:1px solid var(--red); color:var(--fg)} .more .note a:hover{color:var(--red)}
 
 /* ---------- install ---------- */
-.install .grid{display:grid; grid-template-columns:1fr; gap:1rem; max-width:720px; margin-top:1.8rem}
-.cmd{position:relative; border:1px solid var(--hair-strong); border-radius:3px; background:var(--faint)}
-.cmd .h{display:flex; justify-content:space-between; align-items:center;
+.install .grid{display:grid; grid-template-columns:1fr; gap:1rem; max-width:720px; margin-top:1.8rem; min-width:0}
+.cmd{position:relative; min-width:0; border:1px solid var(--hair-strong); border-radius:3px; background:var(--faint)}
+.cmd .h{display:flex; justify-content:space-between; align-items:center; gap:.6rem;
   padding:.55rem .9rem; border-bottom:1px solid var(--hair); font-family:var(--mono);
   font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
-.cmd pre{margin:0; padding:1rem .9rem; overflow-x:auto; font-family:var(--mono);
-  font-size:.86rem; line-height:1.7}
+.cmd .h span{min-width:0}
+/* wrap commands so the whole line fits the screen instead of being clipped */
+.cmd pre{margin:0; padding:1rem .9rem; font-family:var(--mono); font-size:.86rem; line-height:1.7;
+  white-space:pre-wrap; overflow-wrap:anywhere}
 .cmd pre .p{color:var(--red)}
 .copy{font-family:var(--mono); font-size:.64rem; letter-spacing:.08em; text-transform:uppercase;
   background:none; border:1px solid var(--hair); color:var(--muted); border-radius:100px;
@@ -426,10 +439,10 @@ footer{border-top:1px solid var(--hair-strong); padding-block:3rem 3.5rem;
       </div>
       <div>
         <p class="desc">Provenance primitives (JS + Python), plus skills that audit for
-          laundered uncertainty, and refuse to launder it back out during the fix. Mock,
-          derived, measured, asserted: the label travels with the value.</p>
+          laundered uncertainty and refuse to launder it back out during the fix. Mock,
+          derived, measured, asserted: the label travels with the value, all the way to the claim.</p>
         <div class="pills">
-          <span class="pill live">● in use</span><span class="pill">v0.7</span>
+          <span class="pill live">● in use</span><span class="pill" data-sync="version:plumb-line">v0.7</span>
           <span class="pill">JS + Python</span><span class="pill">zero deps</span>
         </div>
         <div class="tlinks">
@@ -449,9 +462,9 @@ footer{border-top:1px solid var(--hair-strong); padding-block:3rem 3.5rem;
       <div>
         <p class="desc">Route work to the cheapest capable tier, name your own lanes
           (no defaults shipped), and carry strategy across sessions in a living playbook of
-          reusable method, so a session opens on strategy instead of re-exploration.</p>
+          reusable method, so each session opens on strategy instead of re-exploration.</p>
         <div class="pills">
-          <span class="pill live">● in use</span><span class="pill">v0.3</span>
+          <span class="pill live">● in use</span><span class="pill" data-sync="version:tokenomics">v0.3</span>
           <span class="pill">3 skills + method</span>
         </div>
         <div class="tlinks">
@@ -470,9 +483,10 @@ footer{border-top:1px solid var(--hair-strong); padding-block:3rem 3.5rem;
         <p class="desc">GitHub issues and milestones as the only home of work state,
           queryable and conflict-free, never a prose file that merges as text and loses rows.
           Skills teach the convention, stamp it onto a repo, migrate old ledgers, and digest
-          aging work. Cross-project “pollen” carries a proven pattern to the next repo.</p>
+          aging work so deferrals surface instead of rotting. Cross-project “pollen” carries a
+          proven pattern to the next repo.</p>
         <div class="pills">
-          <span class="pill live">● in use</span><span class="pill">v0.8</span>
+          <span class="pill live">● in use</span><span class="pill" data-sync="version:recursive-spine">v0.8</span>
           <span class="pill">8 skills</span>
         </div>
         <div class="tlinks">
@@ -706,6 +720,24 @@ footer{border-top:1px solid var(--hair-strong); padding-block:3rem 3.5rem;
   }
 
   if(!reduce){ theta=0.15; omega=-0.10; physics(); }   // intro swing
+
+  // Tuck the plumb away before it reaches the footer, so the fixed line
+  // never crosses the full-width footer / colophon text at the bottom.
+  var footer=document.querySelector('footer');
+  if(footer){
+    if('IntersectionObserver' in window){
+      var fo=new IntersectionObserver(function(es){
+        es.forEach(function(en){ plumb.classList.toggle('tucked', en.isIntersecting); });
+      }, {rootMargin:'0px 0px -12% 0px'});
+      fo.observe(footer);
+    } else {
+      var onScroll=function(){
+        var r=footer.getBoundingClientRect();
+        plumb.classList.toggle('tucked', r.top < window.innerHeight*0.88);
+      };
+      window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+    }
+  }
 })();
 </script>
 </body>

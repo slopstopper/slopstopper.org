@@ -1,0 +1,50 @@
+name: Sync tool versions
+
+# Keeps the version pills on the homepage in step with each tool's latest
+# GitHub Release, so the site stops drifting out of date between visits.
+#
+# Runs daily, on manual dispatch, and on a repository_dispatch ping — a tool
+# repo can fire `{"event_type":"tool-released"}` at this repo from its own
+# release workflow for near-instant updates.
+
+on:
+  schedule:
+    - cron: "17 6 * * *"   # 06:17 UTC daily
+  workflow_dispatch:
+  repository_dispatch:
+    types: [tool-released]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-versions
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Sync versions from releases
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SYNC_TIMESTAMP: ${{ github.event.repository.updated_at }}
+        run: node scripts/sync-versions.mjs
+
+      - name: Commit changes
+        run: |
+          if [[ -z "$(git status --porcelain data/versions.json index.html)" ]]; then
+            echo "No version changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/versions.json index.html
+          git commit -m "chore: sync tool versions from releases"
+          git push
