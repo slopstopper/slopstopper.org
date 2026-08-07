@@ -376,8 +376,8 @@ footer{border-top:1px solid var(--hair-strong); padding-block:3rem 3.5rem;
       <span>It looks like it works — but does it have the right <span class="k">effect?</span></span>
     </h1>
 
-    <p class="sub"><b>slopstopper is a set of tools for checking what generative systems hand you.</b> Each stands
-      alone, and any combination of them works together as one system. </p>
+    <p class="sub"><b>slopstopper is a set of tools for checking what generative systems produce.</b> Each functions 
+      alone, but any combination of them works together as one system, any pairing works without any collision. </p>
 
     <div class="cta">
       <a class="btn pri" href="#install">Install <span class="arr">→</span></a>
@@ -390,15 +390,15 @@ footer{border-top:1px solid var(--hair-strong); padding-block:3rem 3.5rem;
     <div class="snum"><b>§01</b>slop</div>
     <p class="eyebrow">The problem</p>
     <h2>Slop used to be obvious.</h2>
-    <p class="lead">It has not gone away, it has just got better at disguising itself. You cannot tell, by reading something, which parts got checked and which parts got filled in, because it reads the same either way.</p>
-    <p class="muted" style="max-width:54ch;margin-top:1.3rem">Now with generative tools anything can look coherent, polished and confident while remaining completely untethered to reality. Everything "looks right", including complete and utter nonsense.</p>
+    <p It has not disappeared, it just got better at disguising itself. You can no longer tell just by reading something which parts were checked and which parts got filled in with an articulate guess, because it all reads the same either way.</p>
+    <p class="muted" style="max-width:54ch;margin-top:1.3rem">Now with generative tools anything can look coherent, polished and confident while remaining completely untethered to reality. Everything can "look right", including complete and utter nonsense.</p>
   </section>
 
   <!-- ============ WHAT GOES WRONG ============ -->
   <section id="risks">
     <div class="snum"><b>§02</b>the register</div>
     <p class="eyebrow">Failure modes</p>
-    <h2>What goes wrong when fluent tools meet real work.</h2>
+    <h2>So where does it get in?</h2>
     <dl class="register" style="margin-top:2.4rem">
       <div class="risk"><dt><span class="rn">R1</span>Laundered uncertainty</dt>
         <dd>A mock value gets used as if it were measured. It ends up in a dashboard, then a
@@ -423,9 +423,7 @@ footer{border-top:1px solid var(--hair-strong); padding-block:3rem 3.5rem;
     <div class="snum"><b>§03</b>in use</div>
     <p class="eyebrow">Three tools · one system</p>
     <h2>Three concerns that don't overlap.</h2>
-    <p class="lead" style="margin-bottom:2.6rem">Honesty of claims, economics of effort,
-      location of state. Because the concerns don't overlap, the tools run together without
-      colliding: each stands alone, and any combination composes into one system.</p>
+    <p class="lead" style="margin-bottom:2.6rem">One checks whether claims are honest, one checks which model should be doing the work, and one checks where the record of the work lives.</p>
 
     <div class="tool">
       <div>
@@ -434,9 +432,7 @@ footer{border-top:1px solid var(--hair-strong); padding-block:3rem 3.5rem;
         <p class="measures">measures: <b>whether claims are honest</b></p>
       </div>
       <div>
-        <p class="desc">Provenance primitives (JS + Python), plus skills that audit for
-          laundered uncertainty and refuse to launder it back out during the fix. Mock,
-          derived, measured, asserted: the label travels with the value, all the way to the claim.</p>
+        <p class="desc">Provenance primitives for JavaScript and Python, along with skills that audit for laundered uncertainty and will not launder it back out while fixing it. If a value was mocked, derived, measured or asserted, that label travels with it all the way to the claim.</p>
         <div class="pills">
           <span class="pill live">● in use</span><span class="pill" data-sync="version:plumb-line">v0.7.3</span>
           <span class="pill">JS + Python</span><span class="pill">zero deps</span>
@@ -456,9 +452,7 @@ footer{border-top:1px solid var(--hair-strong); padding-block:3rem 3.5rem;
         <p class="measures">measures: <b>which model should do the work</b></p>
       </div>
       <div>
-        <p class="desc">Route work to the cheapest capable tier, name your own lanes
-          (no defaults shipped), and carry strategy across sessions in a living playbook of
-          reusable method, so each session opens on strategy instead of re-exploration.</p>
+        <p class="desc">Work is routed to the cheapest tier that can actually do it, and you name your own lanes rather than inheriting defaults. A living playbook carries strategy between sessions, so a new session opens on what you already worked out.</p>
         <div class="pills">
           <span class="pill live">● in use</span><span class="pill" data-sync="version:tokenomics">v0.3</span>
           <span class="pill">3 skills + method</span>
@@ -476,11 +470,7 @@ footer{border-top:1px solid var(--hair-strong); padding-block:3rem 3.5rem;
         <p class="measures">measures: <b>where tracked state lives</b></p>
       </div>
       <div>
-        <p class="desc">GitHub issues and milestones as the only home of work state,
-          queryable and conflict-free, never a prose file that merges as text and loses rows.
-          Skills teach the convention, stamp it onto a repo, migrate old ledgers, and digest
-          aging work so deferrals surface instead of rotting. Cross-project “pollen” carries a
-          proven pattern to the next repo.</p>
+        <p class="desc">Work state lives in GitHub issues and milestones, where it stays queryable and does not hit the merge conflicts a prose file does. The skills teach the convention, stamp it onto a repo, migrate an old ledger, and age deferrals so they surface before they rot. Cross-project "pollen" carries a pattern that proved itself into the next repo.</p>
         <div class="pills">
           <span class="pill live">● in use</span><span class="pill" data-sync="version:recursive-spine">v0.12.1</span>
           <span class="pill">8 skills</span>
@@ -490,8 +480,7 @@ footer{border-top:1px solid var(--hair-strong); padding-block:3rem 3.5rem;
         </div>
       </div>
     </div>
-    <p class="together">All three can run at once. Because their concerns are disjoint by
-      construction, composing them adds coverage, not conflict.</p>
+    <p class="together">Each one works on its own and in combination. Put tokenomics and recursive-spine together and the routing gets logged as issues instead of sitting in a playbook.</p>
   </section>
 
   <!-- ============ APPLIED TO ITSELF ============ -->
@@ -518,9 +507,7 @@ footer{border-top:1px solid var(--hair-strong); padding-block:3rem 3.5rem;
           stamped by its own bootstrap. Its deferrals age on its own digest.</p>
       </div>
     </div>
-    <p class="houserule">The house rule: if a discipline is too heavy to follow while building
-      the tool that states it, the discipline is <b>wrong</b>. Change the rule, and leave the
-      record alone.</p>
+    <p class="houserule">A rule you cannot follow while building the tool that asks you to follow it is a bad rule, and the honest response is to change it. The record of having broken it stays where it is, because editing that would be another  failure.</p>
   </section>
 
   <!-- ============ MORE WILL FOLLOW ============ -->
@@ -569,9 +556,7 @@ footer{border-top:1px solid var(--hair-strong); padding-block:3rem 3.5rem;
     <p class="eyebrow">Status, honestly</p>
     <p class="big">None of this stops you from shipping <span class="s">slop</span>. It just
       makes it visible, attributable, and slightly embarrassing.</p>
-    <p class="honest">From live practice in a few real projects, written up as practice
-      reports, not benchmarks. We would love to tell you these tools are <strong>battle-tested</strong>;
-      our own CI fails any README containing that phrase.</p>
+    <p plumb-line's deterministic checks catch every planted violation in the fixtures without a false positive, and the results are in validation-results.md.We would love to tell you these are <strong>battle-tested</strong>; our own CI fails any README containing that phrase.</p>
   </section>
 
   </main>
@@ -608,7 +593,7 @@ footer{border-top:1px solid var(--hair-strong); padding-block:3rem 3.5rem;
     </div>
   </div>
   <div class="colophon">
-    <span>© slopstopper — coherent doesn't mean correct.</span>
+    <span>© slopstopper — tools against synthetic coherence.</span>
     <span>Set in Bricolage Grotesque &amp; IBM Plex Mono · self-hosted, no trackers, no runtime external calls.</span>
   </div>
 </footer>
