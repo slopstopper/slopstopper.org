@@ -310,6 +310,13 @@ footer{border-top:1px solid var(--hair-strong); padding-block:3rem 3.5rem;
   .reveal{opacity:1; transform:none}
   .epi > span{opacity:1; transform:none}
 }
+/* ---------- writing list ---------- */
+.pieces{list-style:none; margin:1.5rem 0 0; padding:0; max-width:60ch}
+.pieces li{padding:.6rem 0; border-top:1px solid var(--hair); display:flex; gap:1.1rem; align-items:baseline; flex-wrap:wrap}
+.pieces li:last-child{border-bottom:1px solid var(--hair)}
+.pieces .d{font-family:var(--mono); font-size:.72rem; color:var(--muted); letter-spacing:.04em; white-space:nowrap}
+.pieces a{border-bottom:1px solid var(--red)}
+.pieces a:hover{color:var(--red)}
 </style>
 </head>
 <body>
@@ -336,6 +343,7 @@ footer{border-top:1px solid var(--hair-strong); padding-block:3rem 3.5rem;
       <a href="#risks" class="hideable">What&nbsp;goes&nbsp;wrong</a>
       <a href="#tools">The&nbsp;tools</a>
       <a href="#install">Install</a>
+      <a href="#writing" class="hideable">Writing</a>
       <a href="https://github.com/slopstopper" class="hideable" target="_blank" rel="noopener">GitHub</a>
     </nav>
     <button class="ttog" id="ttog" aria-label="Toggle light or dark theme">
@@ -550,9 +558,23 @@ footer{border-top:1px solid var(--hair-strong); padding-block:3rem 3.5rem;
       or the org profile on <a href="https://github.com/slopstopper" target="_blank" rel="noopener" style="border-bottom:1px solid var(--red)">GitHub</a>.</p>
   </section>
 
+  <!-- ============ WRITING ============ -->
+  <section id="writing" class="writing">
+    <div class="snum"><b>§07</b>writing</div>
+    <p class="eyebrow">Write-ups</p>
+    <h2>What shipped, with receipts.</h2>
+    <p class="lead">One short piece per release, drafted from the shipped artifacts and
+      passed through the same audit gate as the code. Machine-drafted, owner-edited,
+      sources listed on every piece.</p>
+    <ul class="pieces">
+      <li><span class="d">2026-08-15</span>
+        <a href="https://github.com/slopstopper/plumb-line/blob/main/docs/content/2026-08-15-plumb-line-0.9.0-the-front-door.md" target="_blank" rel="noopener">plumb-line 0.9.0 — the front door</a></li>
+    </ul>
+  </section>
+
   <!-- ============ STATUS / CLOSER ============ -->
   <section id="status" class="status">
-    <div class="snum"><b>§07</b>honestly</div>
+    <div class="snum"><b>§08</b>honestly</div>
     <p class="eyebrow">Status, honestly</p>
     <p class="big">None of this stops you from shipping <span class="s">slop</span>. It just
       makes it visible, attributable, and slightly embarrassing.</p>
