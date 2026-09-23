@@ -67,7 +67,7 @@
 
   function place(){
     markX=mark.getBoundingClientRect().left; plumb.style.left=markX+'px';
-    L=plumb.offsetHeight||600; MAXT=Math.min(0.17, 120/L);   // cap swing so the bob stays in the gutter
+    L=plumb.offsetHeight||600; MAXT=Math.min(0.17, (parseFloat(plumb.dataset.maxSwing)||120)/L);   // cap swing so the bob stays in the gutter
   }
   function apply(){ plumb.style.transform='rotate('+theta.toFixed(4)+'rad)'; }
   function step(){
@@ -128,6 +128,13 @@
 (function(){
   var fig=document.getElementById('plumb'); if(!fig) return;
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // experiment: hang Plumb from the gutter line (it IS the plumb bob) on wide, fine-pointer viewports
+  var hang=document.querySelector('.plumb--character .hang');
+  if(hang && matchMedia('(pointer:fine)').matches && window.innerWidth>=760){
+    hang.appendChild(fig);
+    document.body.classList.add('pl-hanging');
+    window.dispatchEvent(new Event('resize'));   // let the swing code re-measure its length
+  }
   var law=document.getElementById('law'), fired=false;
   function flash(){
     if(fired) return; fired=true;

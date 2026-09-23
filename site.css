@@ -315,8 +315,19 @@ body[data-page="plumb-line"] nav.links a[data-nav="plumb-line"]::after{right:0}
 .deeper a{display:flex; justify-content:space-between; align-items:center; gap:.5rem; padding:.85rem 1rem;
   border:1px solid var(--hair-strong); border-radius:3px; color:var(--fg); font-family:var(--mono); font-size:.8rem}
 .deeper a:hover{color:var(--red); border-color:var(--red)}
-/* one plumb thing per page: hide the gutter line where Plumb stands */
-body[data-page="plumb-line"] .plumb, body[data-page="plumb-line"] .plumb-mark{display:none}
+/* one plumb thing per page. Experiment (2026-09-23): on wide, fine-pointer
+   viewports site.js moves Plumb from the hero into the gutter line so the
+   character IS the plumb bob; elsewhere the grounded hero Plumb stays and the
+   gutter line is hidden. */
+body[data-page="plumb-line"]:not(.pl-hanging) .plumb,
+body[data-page="plumb-line"]:not(.pl-hanging) .plumb-mark{display:none}
+body.pl-hanging .plfig{display:none}
+body.pl-hanging .plhero{grid-template-columns:1fr}
+.plumb--character .string{bottom:92px}
+.plumb--character .hang{position:absolute; bottom:0; left:-36px; width:72px; height:108px}
+.plumb--character .hang svg{width:72px; height:108px; display:block; overflow:visible;
+  filter:drop-shadow(0 3px 7px color-mix(in srgb, var(--ink) 25%, transparent))}
+.plumb--character .grab{left:-40px; width:80px}
 
 /* ---------- Plumb: grounded idle, detection flash, wave ---------- */
 #plumb #head,#plumb #body{transform-box:view-box; transform-origin:300px 800px; animation:pl-breathe 4s ease-in-out infinite}

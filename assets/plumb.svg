@@ -18,29 +18,29 @@
 
     <!-- limbs first: their roots sit inside the body silhouette -->
     <g id="arm-l">
-      <path d="M 262 522 C 214 548 190 604 200 660" stroke-width="32"/>
-      <path d="M 262 522 C 214 548 190 604 200 660" stroke="var(--pl-body)" stroke-width="16"/>
-      <path d="M 186 682 C 176 664 190 652 204 660 C 218 668 214 690 198 692 C 190 694 188 688 186 682 Z" fill="var(--pl-green)" stroke-width="7"/>
+      <path d="M 256 526 C 210 552 186 608 194 664" stroke-width="32"/>
+      <path d="M 256 526 C 210 552 186 608 194 664" stroke="var(--pl-body)" stroke-width="16"/>
+      <path d="M 180 686 C 170 668 184 656 198 664 C 212 672 208 694 192 696 C 184 698 182 692 180 686 Z" fill="var(--pl-green)" stroke-width="7"/>
     </g>
     <g id="arm-r">
-      <path d="M 344 520 C 398 540 428 596 424 656" stroke-width="32"/>
-      <path d="M 344 520 C 398 540 428 596 424 656" stroke="var(--pl-body)" stroke-width="16"/>
+      <path d="M 344 526 C 390 552 414 608 406 664" stroke-width="32"/>
+      <path d="M 344 526 C 390 552 414 608 406 664" stroke="var(--pl-body)" stroke-width="16"/>
       <path id="hand-heart" fill="var(--pl-green)" stroke-width="7"
-        d="M 428 690 C 404 674 406 648 426 658 C 446 646 452 672 428 690 Z"/>
+        d="M 410 694 C 386 678 388 652 408 662 C 428 650 434 676 410 694 Z"/>
     </g>
     <g id="legs" fill="var(--pl-trim)">
-      <path d="M 254 700 C 250 740 254 772 262 792 L 292 790 C 288 770 288 738 290 704 Z"/>
-      <path d="M 316 706 C 314 740 316 772 322 790 L 352 792 C 358 770 356 738 350 700 Z"/>
+      <path d="M 252 704 C 248 746 252 780 260 800 L 290 798 C 286 778 286 744 288 708 Z"/>
+      <path d="M 318 710 C 316 746 318 780 324 798 L 354 800 C 360 778 358 744 352 704 Z"/>
     </g>
     <g id="feet" fill="var(--pl-green)">
-      <path d="M 236 800 C 240 786 262 782 282 786 C 300 790 302 806 288 814 C 268 822 236 818 236 800 Z"/>
-      <path d="M 366 802 C 362 786 340 782 320 788 C 304 794 306 808 322 816 C 342 822 368 818 366 802 Z"/>
+      <path d="M 234 808 C 238 794 260 790 280 794 C 298 798 300 814 286 822 C 266 830 234 826 234 808 Z"/>
+      <path d="M 368 810 C 364 794 342 790 322 796 C 306 802 308 816 324 824 C 344 830 370 826 368 810 Z"/>
     </g>
 
     <!-- body: pear, narrow at the collar, widest low and a little right -->
     <g id="body">
       <path id="body-shape" fill="var(--pl-body)"
-        d="M 300 466 C 264 466 244 488 238 530 C 226 590 196 640 202 680 C 208 716 250 726 300 726 C 350 726 392 716 398 680 C 404 640 374 590 362 530 C 356 488 336 466 300 466 Z"/>
+        d="M 300 466 C 262 466 242 490 234 534 C 220 596 186 646 190 690 C 196 726 246 736 300 736 C 354 736 404 726 410 690 C 414 646 380 596 366 534 C 358 490 338 466 300 466 Z"/>
       <path id="mark-pl" stroke-width="10"
         d="M 280 548 V 656 H 322 M 280 548 H 306 C 338 548 338 600 306 600 H 280"/>
     </g>
