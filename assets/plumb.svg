@@ -7,13 +7,13 @@
   <title id="plumb-title">Plumb, the plumb-line character</title>
   <g fill="none" stroke="var(--pl-line)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
     <g id="antenna">
-      <line x1="300" y1="168" x2="300" y2="206"/>
-      <g id="rays" stroke="var(--pl-amber)" stroke-width="7" opacity="0">
-        <line x1="300" y1="112" x2="300" y2="96"/><line x1="330" y1="124" x2="341" y2="112"/>
-        <line x1="342" y1="152" x2="358" y2="152"/><line x1="270" y1="124" x2="259" y2="112"/>
-        <line x1="258" y1="152" x2="242" y2="152"/><line x1="300" y1="192" x2="300" y2="204"/>
+      <line x1="300" y1="180" x2="300" y2="206"/>
+      <g id="rays" stroke="var(--pl-amber)" stroke-width="9" opacity="0">
+        <line x1="300" y1="112" x2="300" y2="90"/><line x1="330" y1="122" x2="346" y2="106"/>
+        <line x1="342" y1="152" x2="364" y2="152"/><line x1="270" y1="122" x2="254" y2="106"/>
+        <line x1="258" y1="152" x2="236" y2="152"/>
       </g>
-      <circle id="bob" cx="300" cy="152" r="16" fill="var(--pl-green)"/>
+      <circle id="bob" cx="300" cy="152" r="30" fill="var(--pl-green)"/>
     </g>
 
     <!-- limbs first: their roots sit inside the body silhouette -->

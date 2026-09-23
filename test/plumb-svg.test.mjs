@@ -60,3 +60,7 @@ test("limbs are drawn before the body so they emerge from it", () => {
   assert.ok(order[0] < order[3] && order[1] < order[3] && order[2] < order[3], "arms and legs before body");
   assert.ok(order[3] < order[4], "collar over body");
 });
+
+test("the bob matches canon proportion (about a fifth of the head): r >= 28 in a 600-wide viewBox", () => {
+  assert.ok(parseFloat(attr("bob", "r")) >= 28, `bob r=${attr("bob", "r")}`);
+});

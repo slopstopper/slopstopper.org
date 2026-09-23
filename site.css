@@ -22,7 +22,7 @@
   --gutter: clamp(2.75rem, 8vw, 7.5rem);
   --edge: clamp(1.1rem, 5vw, 4rem);
   --maxw: 1220px;
-  --plumbL: clamp(380px, 88vh, 1200px);
+  --plumbL: clamp(300px, 62vh, 900px);   /* shorter line (owner, 2026-09-23): the bob hangs about two-thirds down, not at the foot of the viewport */
   --mono:"PlexMono", ui-monospace, "SF Mono", Menlo, monospace;
   --disp:"Bricolage", ui-sans-serif, system-ui, sans-serif;
 }
@@ -315,19 +315,25 @@ body[data-page="plumb-line"] nav.links a[data-nav="plumb-line"]::after{right:0}
 .deeper a{display:flex; justify-content:space-between; align-items:center; gap:.5rem; padding:.85rem 1rem;
   border:1px solid var(--hair-strong); border-radius:3px; color:var(--fg); font-family:var(--mono); font-size:.8rem}
 .deeper a:hover{color:var(--red); border-color:var(--red)}
-/* one plumb thing per page. Experiment (2026-09-23): on wide, fine-pointer
-   viewports site.js moves Plumb from the hero into the gutter line so the
-   character IS the plumb bob; elsewhere the grounded hero Plumb stays and the
-   gutter line is hidden. */
+/* one plumb thing per page: site.js moves Plumb from the hero into the gutter
+   line so the character IS the plumb bob (owner decision 2026-09-23, all
+   viewports). Without JS the grounded hero Plumb stays and the line is hidden. */
 body[data-page="plumb-line"]:not(.pl-hanging) .plumb,
 body[data-page="plumb-line"]:not(.pl-hanging) .plumb-mark{display:none}
 body.pl-hanging .plfig{display:none}
 body.pl-hanging .plhero{grid-template-columns:1fr}
-.plumb--character .string{bottom:92px}
+.plumb--character .string{bottom:93px}
 .plumb--character .hang{position:absolute; bottom:0; left:-36px; width:72px; height:108px}
 .plumb--character .hang svg{width:72px; height:108px; display:block; overflow:visible;
   filter:drop-shadow(0 3px 7px color-mix(in srgb, var(--ink) 25%, transparent))}
 .plumb--character .grab{left:-40px; width:80px}
+@media(max-width:760px){
+  .plumb--character .hang{left:-24px; width:48px; height:72px}
+  .plumb--character .hang svg{width:48px; height:72px}
+  .plumb--character .string{bottom:62px}
+  .plumb--character .grab{left:-28px; width:56px}
+}
+@media(max-width:640px){ body[data-page="plumb-line"]{--gutter:3.5rem} }   /* room for the 48px figure beside the text column */
 body.pl-hanging #plumb{animation:none}                 /* no weight-shift on a pendulum: keeps the string centred on the bob */
 .snum{transition:opacity .25s ease}
 .snum.yield{opacity:.12}                                /* Plumb has right of way past the section numbers */

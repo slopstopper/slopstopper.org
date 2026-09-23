@@ -128,9 +128,9 @@
 (function(){
   var fig=document.getElementById('plumb'); if(!fig) return;
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // experiment: hang Plumb from the gutter line (it IS the plumb bob) on wide, fine-pointer viewports
+  // hang Plumb from the gutter line: the character IS the plumb bob (all viewports; hero Plumb is the no-JS fallback)
   var hang=document.querySelector('.plumb--character .hang');
-  if(hang && matchMedia('(pointer:fine)').matches && window.innerWidth>=760){
+  if(hang){
     hang.appendChild(fig);
     document.body.classList.add('pl-hanging');
     window.dispatchEvent(new Event('resize'));   // let the swing code re-measure its length
