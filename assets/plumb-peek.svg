@@ -1,0 +1,11 @@
+<svg class="peek" xmlns="http://www.w3.org/2000/svg" viewBox="150 80 340 300" aria-hidden="true" focusable="false"
+     style="--pl-head:#2e9e3a;--pl-green:#3fb043;--pl-line:#141414">
+  <!-- Plumb peeking: head and bob only, from assets/plumb.svg, same palette. Decorative. -->
+  <g fill="none" stroke="var(--pl-line)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="300" y1="180" x2="300" y2="206"/>
+    <circle cx="300" cy="152" r="30" fill="var(--pl-green)"/>
+    <path fill="var(--pl-head)" d="M 296 204 C 218 204 166 246 164 316 C 162 388 200 440 292 446 C 396 452 480 414 480 338 C 480 260 402 204 296 204 Z"/>
+    <ellipse class="pk-eye" cx="244" cy="322" rx="21" ry="30" fill="var(--pl-line)" stroke="none"/>
+    <ellipse class="pk-eye pk-eye-r" cx="378" cy="318" rx="31" ry="44" fill="var(--pl-line)" stroke="none"/>
+  </g>
+</svg>

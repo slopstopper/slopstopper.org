@@ -263,7 +263,8 @@ p{margin:0 0 1.1rem}
 footer{border-top:1px solid var(--hair-strong); padding-block:3rem 3.5rem;
   position:relative; z-index:1}
 .fcols{max-width:var(--maxw); margin:0 auto; padding:0 var(--edge);
-  display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:2rem}
+  display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr 1fr; gap:2rem}
+@media(max-width:900px){.fcols{grid-template-columns:1fr 1fr}} @media(max-width:520px){.fcols{grid-template-columns:1fr}}
 .fcols .about{max-width:34ch; color:var(--muted); font-size:.92rem}
 .fcols .about svg{height:16px; margin-bottom:1rem; display:block}
 .fcols .about svg .wm-letter,.fcols .about svg .wm-bar{fill:var(--fg)}
@@ -375,3 +376,15 @@ body.pl-hanging #plumb #head,body.pl-hanging #plumb #body{animation:none}   /* n
 .privacy .tool .desc{margin:0 0 .9rem} .privacy .tool .desc:last-child{margin-bottom:0}
 .privacy .meta{font-family:var(--mono); font-size:.78rem; color:var(--muted)}
 .privacy .reveal{opacity:1; transform:none; transition:none}
+
+
+/* ---------- home: featured plumb-line row with Plumb peeking ---------- */
+a.tool.featured{color:inherit; text-decoration:none; display:grid}
+a.tool.featured .golink{display:inline-flex; align-items:center; gap:.4rem; color:var(--fg); font-family:var(--mono); font-size:.8rem; padding:.35rem .6rem; border:1px solid var(--hair-strong); border-radius:3px; margin-top:.9rem}
+a.tool.featured:hover .golink{color:var(--red); border-color:var(--red)}
+.peekwrap{display:inline-block; width:1.9em; height:1.1em; vertical-align:-.12em; margin-right:.2em; overflow:visible; position:relative}
+.peekwrap .peek{position:absolute; left:0; bottom:-.15em; width:1.9em; height:1.9em; transform:rotate(-8deg); transform-origin:50% 90%; transition:transform .35s cubic-bezier(.2,.75,.2,1)}
+a.tool.featured:hover .peekwrap .peek{transform:translateY(-.12em) rotate(4deg)}
+.peek .pk-eye{transform-box:fill-box; transform-origin:center; animation:pl-blink 4s infinite}
+.peek .pk-eye-r{animation-delay:.05s}
+@media(prefers-reduced-motion:reduce){.peek .pk-eye{animation:none} .peekwrap .peek{transition:none}}
