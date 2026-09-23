@@ -303,3 +303,17 @@ footer{border-top:1px solid var(--hair-strong); padding-block:3rem 3.5rem;
 /* current page in the top nav (body[data-page] set per page, template stays identical) */
 body[data-page="plumb-line"] nav.links a[data-nav="plumb-line"]{color:var(--fg)}
 body[data-page="plumb-line"] nav.links a[data-nav="plumb-line"]::after{right:0}
+
+/* ---------- plumb-line page ---------- */
+.plhero{display:grid; grid-template-columns:minmax(150px,240px) 1fr; gap:clamp(1.5rem,4vw,3.5rem); align-items:center}
+.plfig{display:flex; justify-content:center}
+.plfig svg{width:100%; max-width:240px; height:auto; display:block; overflow:visible}
+.plh1{font-size:clamp(1.6rem,3.2vw,2.6rem); line-height:1.15; letter-spacing:-.01em; margin:0 0 1.2rem}
+@media(max-width:720px){.plhero{grid-template-columns:1fr} .plfig svg{max-width:170px}}
+.law-code{margin:1.6rem 0} .law-code pre .c{color:var(--muted)}
+.deeper{list-style:none; padding:0; margin:0; display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:.7rem}
+.deeper a{display:flex; justify-content:space-between; align-items:center; gap:.5rem; padding:.85rem 1rem;
+  border:1px solid var(--hair-strong); border-radius:3px; color:var(--fg); font-family:var(--mono); font-size:.8rem}
+.deeper a:hover{color:var(--red); border-color:var(--red)}
+/* one plumb thing per page: hide the gutter line where Plumb stands */
+body[data-page="plumb-line"] .plumb, body[data-page="plumb-line"] .plumb-mark{display:none}

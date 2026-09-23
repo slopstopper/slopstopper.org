@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>plumb-line — slopstopper</title>
-<meta name="description" content="plumb-line: provenance, confidence and mock-taint that travel with values through JavaScript and Python, and review-time checks that catch uncertainty laundered into a claim.">
+<meta name="description" content="Values that remember where they came from, and review tooling that detects when they don't.">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="alternate icon" href="../assets/favicon-512.png">
@@ -50,22 +50,145 @@
 <!-- /chrome:header -->
 <div class="wrap">
   <main>
-  <section class="hero" id="top">
-    <p class="eyebrow">01 / plumb-line</p>
-    <h1>plumb-line</h1>
-    <p class="sub"><b>Placeholder.</b> This page is being built (sub-project 2); the content below is generated and the prose is not yet written.</p>
-    <div class="pills">
-      <span class="pill live">● in use</span><span class="pill" data-sync="version:plumb-line">v0.11.1</span>
-      <span class="pill">JS + Python</span><span class="pill">zero deps</span>
+  <section class="hero plhero" id="top">
+    <div class="plfig">
+<!-- inline:assets/plumb.svg -->
+<svg id="plumb" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" role="img" aria-labelledby="plumb-title"
+     style="--pl-head:#2e9e3a;--pl-body:#ff9a1f;--pl-trim:#f47b12;--pl-green:#3fb043;--pl-line:#141414;--pl-amber:#fb9902">
+  <!-- Plumb — vector reference. Figure axis x=300. Head is deliberately asymmetric:
+       right side wider and lower, right eye larger (canon). Chest mark is the PL ligature. -->
+  <title id="plumb-title">Plumb, the plumb-line character</title>
+  <g fill="none" stroke="var(--pl-line)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <g id="antenna">
+      <line x1="300" y1="168" x2="300" y2="206"/>
+      <g id="rays" stroke="var(--pl-amber)" stroke-width="7" opacity="0">
+        <line x1="300" y1="112" x2="300" y2="96"/><line x1="330" y1="124" x2="341" y2="112"/>
+        <line x1="342" y1="152" x2="358" y2="152"/><line x1="270" y1="124" x2="259" y2="112"/>
+        <line x1="258" y1="152" x2="242" y2="152"/><line x1="300" y1="192" x2="300" y2="204"/>
+      </g>
+      <circle id="bob" cx="300" cy="152" r="16" fill="var(--pl-green)"/>
+    </g>
+    <g id="head">
+      <path id="head-shape" fill="var(--pl-head)"
+        d="M 296 204 C 218 204 166 246 164 316 C 162 388 200 440 292 446 C 396 452 480 414 480 338 C 480 260 402 204 296 204 Z"/>
+      <ellipse id="eye-l" cx="244" cy="322" rx="21" ry="30" fill="var(--pl-line)" stroke="none"/>
+      <ellipse id="eye-r" cx="378" cy="318" rx="31" ry="44" fill="var(--pl-line)" stroke="none"/>
+    </g>
+    <rect id="collar" x="250" y="442" width="100" height="30" rx="14" fill="var(--pl-trim)"/>
+    <g id="body">
+      <path id="body-shape" fill="var(--pl-body)"
+        d="M 300 470 C 236 470 196 520 186 590 C 174 676 222 742 300 744 C 378 742 426 676 414 590 C 404 520 364 470 300 470 Z"/>
+      <path id="mark-pl" stroke-width="10"
+        d="M 280 556 V 664 H 322 M 280 556 H 308 C 340 556 340 608 308 608 H 280"/>
+    </g>
+    <g id="arm-l">
+      <path d="M 206 520 C 172 560 164 620 184 662" stroke-width="34"/>
+      <path d="M 206 520 C 172 560 164 620 184 662" stroke="var(--pl-body)" stroke-width="18"/>
+      <circle cx="182" cy="674" r="16" fill="var(--pl-green)" stroke-width="7"/>
+    </g>
+    <g id="arm-r">
+      <path d="M 394 520 C 428 560 436 620 416 662" stroke-width="34"/>
+      <path d="M 394 520 C 428 560 436 620 416 662" stroke="var(--pl-body)" stroke-width="18"/>
+      <path id="hand-heart" fill="var(--pl-green)" stroke-width="7"
+        d="M 418 690 C 394 672 398 646 418 656 C 438 646 442 672 418 690 Z"/>
+    </g>
+    <g id="legs" fill="var(--pl-trim)">
+      <rect x="256" y="732" width="36" height="58" rx="14"/>
+      <rect x="308" y="732" width="36" height="58" rx="14"/>
+    </g>
+    <g id="feet" fill="var(--pl-green)">
+      <ellipse cx="266" cy="800" rx="40" ry="19"/>
+      <ellipse cx="334" cy="800" rx="40" ry="19"/>
+    </g>
+  </g>
+</svg>
+<!-- /inline:assets/plumb.svg -->
     </div>
-    <div class="tlinks">
-      <a href="https://github.com/slopstopper/plumb-line" target="_blank" rel="noopener">Repository <span class="arr">↗</span></a>
-      <a href="https://www.npmjs.com/package/plumb-line-provenance" target="_blank" rel="noopener">npm <span class="arr">↗</span></a>
-      <a href="https://pypi.org/project/plumb-line-provenance/" target="_blank" rel="noopener">PyPI <span class="arr">↗</span></a>
+    <div>
+      <p class="eyebrow">01 / plumb-line</p>
+      <h1 class="plh1">Values that remember where they came from, and review tooling that detects when they don't.</h1>
+      <p class="sub"><b>So you'll know it's dirty before it's a decision.</b></p>
+      <div class="pills">
+        <span class="pill live">● in use</span><span class="pill" data-sync="version:plumb-line">v0.11.1</span>
+        <span class="pill">JS + Python</span><span class="pill">zero deps</span>
+      </div>
+      <div class="cta">
+        <a class="btn pri" href="#install">Install <span class="arr">→</span></a>
+        <a class="btn" href="https://github.com/slopstopper/plumb-line" target="_blank" rel="noopener">Repository <span class="arr">↗</span></a>
+      </div>
     </div>
   </section>
+
+  <section id="problem">
+    <div class="snum"><b>§01</b>the problem</div>
+    <p class="eyebrow">Where values come from</p>
+    <h2>Once it is in a variable, they all look the same.</h2>
+    <p class="lead">Every value in a program came from somewhere: a database, an API call, a test fixture, a default, a guess. Once it is sitting in a variable they all look the same. That is how a stubbed service answers "success" and the tests go green, how a guessed field flows into a report, and how a fallback an agent wrote to get a test passing ends up behind the dashboard, weeks after anyone remembers it is a fallback.</p>
+    <p>plumb-line finds those places, and can stop new ones from appearing. A set of review-time tools (a Claude Code audit skill, lint rules, git hooks and a GitHub Action) checks a repository or a pull request for mocks treated as real, guesses treated as facts, and claims with nothing behind them. A small zero-dependency library for JavaScript and Python labels each value with where it came from and how much to trust it, and keeps the label attached through every derivation: a result built from a mock says so, and no later step can upgrade it.</p>
+  </section>
+
+  <section id="law">
+    <div class="snum"><b>§02</b>the law</div>
+    <p class="eyebrow">One rule underneath all of it</p>
+    <h2>Combining values can keep or lower their trust level, never raise it.</h2>
+    <div class="cmd law-code">
+      <div class="h"><span>JavaScript · the same in Python</span><button class="copy" data-copy="const base  = mark(1000, { source: &quot;real&quot;, confidence: &quot;high&quot; });&#10;const rate  = mark(1.25, { source: &quot;mock&quot;, confidence: &quot;low&quot; });&#10;const total = derive([base, rate], (a, r) =&gt; a * r);&#10;&#10;total.derivedFromMock; // true&#10;total.confidence;      // 'low'">Copy</button></div>
+<pre>const base  = mark(1000, { source: "real", confidence: "high" });
+const rate  = mark(1.25, { source: <span class="p">"mock"</span>, confidence: "low" });
+const total = derive([base, rate], (a, r) =&gt; a * r);
+
+total.derivedFromMock; <span class="c">// true   inherited from rate, and impossible to clear</span>
+total.confidence;      <span class="c">// 'low'  only as certain as the weakest input</span></pre>
+    </div>
+    <p><code>mark</code> puts the labels on a value (<code>real</code>, <code>mock</code>, <code>inferred</code>, <code>fallback</code>; confidence <code>high</code> down to <code>none</code>). <code>derive</code> runs your own function on labelled values and carries the labels through, keeping the weakest. The library never does the arithmetic and never changes a value; it only keeps the labels honest.</p>
+  </section>
+
+  <section id="fit">
+    <div class="snum"><b>§03</b>fit</div>
+    <p class="eyebrow">Who it's for</p>
+    <h2>You probably want this if…</h2>
+    <p class="lead">AI agents write or modify your code; if mocks, fixtures, fallbacks or synthetic values sit anywhere between an input and an output; or if your outputs are claims: a figure in a paper, a risk score, a forecast, a "safe to proceed". Common in agent-built systems, research code, data and ML pipelines, and inherited codebases.</p>
+    <p>If your app reads a trusted database and shows what it finds, you probably don't need the run-time layer; the <a href="https://github.com/slopstopper/plumb-line/blob/main/reference/fit-map.md" target="_blank" rel="noopener">fit map</a> says so plainly.</p>
+  </section>
+
+  <section id="install" class="install">
+    <div class="snum"><b>§04</b>get it</div>
+    <p class="eyebrow">Three routes</p>
+    <h2>Install.</h2>
+    <div class="grid">
+      <div class="cmd">
+        <div class="h"><span>As a Claude Code plugin</span><button class="copy" data-copy="/plugin marketplace add slopstopper/plumb-line&#10;/plugin install plumb-line@plumb-line">Copy</button></div>
+<pre><span class="p">/plugin</span> marketplace add slopstopper/plumb-line
+<span class="p">/plugin</span> install plumb-line@plumb-line</pre>
+      </div>
+      <div class="cmd">
+        <div class="h"><span>The library</span><button class="copy" data-copy="npm install plumb-line-provenance&#10;pip install plumb-line-provenance">Copy</button></div>
+<pre><span class="p">npm</span> install plumb-line-provenance
+<span class="p">pip</span> install plumb-line-provenance</pre>
+      </div>
+    </div>
+    <p class="aside">Then run <code>plumb-line-adopt</code>. It looks at your repository and tells you which parts of plumb-line fit and what to run first. Updates arrive through <code>/plugin</code>. Zero dependencies. You can also copy <code>primitives/js/</code> or <code>primitives/python/</code> straight into your project.</p>
+    <p class="aside"><b>In CI.</b> Add the <a href="https://github.com/slopstopper/plumb-line/blob/main/ACTION.md" target="_blank" rel="noopener">GitHub Action</a>. On every pull request it runs the checks your <code>.plumb-line/enforcement.json</code> manifest names and writes one SARIF log, with no agent involved. <b>Not using Claude?</b> <a href="https://github.com/slopstopper/plumb-line/blob/main/portable/README.md" target="_blank" rel="noopener">portable/README.md</a> is the entry point without the plugin.</p>
+  </section>
+
+  <section id="deeper">
+    <div class="snum"><b>§05</b>go deeper</div>
+    <p class="eyebrow">Already installed?</p>
+    <h2>The repository is the documentation.</h2>
+    <ul class="deeper">
+      <li><a href="https://github.com/slopstopper/plumb-line/blob/main/primitives/SPEC.md" target="_blank" rel="noopener">Envelope spec <span class="arr">↗</span></a></li>
+      <li><a href="https://github.com/slopstopper/plumb-line/blob/main/reference/fit-map.md" target="_blank" rel="noopener">Fit map <span class="arr">↗</span></a></li>
+      <li><a href="https://github.com/slopstopper/plumb-line/blob/main/ACTION.md" target="_blank" rel="noopener">GitHub Action <span class="arr">↗</span></a></li>
+      <li><a href="https://github.com/slopstopper/plumb-line/tree/main/docs/postmortems" target="_blank" rel="noopener">Postmortems <span class="arr">↗</span></a></li>
+      <li><a href="https://github.com/slopstopper/plumb-line/blob/main/docs/threat-model.md" target="_blank" rel="noopener">Threat model <span class="arr">↗</span></a></li>
+      <li><a href="https://github.com/slopstopper/plumb-line#what-the-audit-writes" target="_blank" rel="noopener">What the audit writes <span class="arr">↗</span></a></li>
+      <li><a href="https://github.com/slopstopper/plumb-line/blob/main/primitives/README.md" target="_blank" rel="noopener">Primitives and the badge <span class="arr">↗</span></a></li>
+      <li><a href="https://slopstopper.github.io/plumb-line/feedback.html" target="_blank" rel="noopener" data-todo="feedback-move">Private feedback <span class="arr">↗</span></a></li>
+    </ul>
+  </section>
+
   <section id="writing" class="writing">
-    <div class="snum"><b>§</b>writing</div>
+    <div class="snum"><b>§06</b>writing</div>
     <p class="eyebrow">Write-ups</p>
     <h2>What shipped, with receipts.</h2>
     <p class="lead">One short piece per release, drafted from the shipped artifacts and
