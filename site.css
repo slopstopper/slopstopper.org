@@ -328,6 +328,9 @@ body.pl-hanging .plhero{grid-template-columns:1fr}
 .plumb--character .hang svg{width:72px; height:108px; display:block; overflow:visible;
   filter:drop-shadow(0 3px 7px color-mix(in srgb, var(--ink) 25%, transparent))}
 .plumb--character .grab{left:-40px; width:80px}
+body.pl-hanging #plumb{animation:none}                 /* no weight-shift on a pendulum: keeps the string centred on the bob */
+.snum{transition:opacity .25s ease}
+.snum.yield{opacity:.12}                                /* Plumb has right of way past the section numbers */
 
 /* ---------- Plumb: grounded idle, detection flash, wave ---------- */
 #plumb #head,#plumb #body{transform-box:view-box; transform-origin:300px 800px; animation:pl-breathe 4s ease-in-out infinite}

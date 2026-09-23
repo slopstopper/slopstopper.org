@@ -134,6 +134,19 @@
     hang.appendChild(fig);
     document.body.classList.add('pl-hanging');
     window.dispatchEvent(new Event('resize'));   // let the swing code re-measure its length
+    // right of way: fade any gutter section number the hanging figure passes over
+    var snums=[].slice.call(document.querySelectorAll('.snum')), ticking=false;
+    function yieldPass(){
+      ticking=false;
+      var r=hang.getBoundingClientRect();
+      snums.forEach(function(n){
+        var b=n.getBoundingClientRect();
+        n.classList.toggle('yield', b.bottom>r.top-8 && b.top<r.bottom+8);
+      });
+    }
+    window.addEventListener('scroll', function(){ if(!ticking){ ticking=true; requestAnimationFrame(yieldPass); } }, {passive:true});
+    window.addEventListener('resize', yieldPass);
+    yieldPass();
   }
   var law=document.getElementById('law'), fired=false;
   function flash(){
