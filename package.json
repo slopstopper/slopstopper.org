@@ -1,0 +1,10 @@
+{
+  "name": "slopstopper.org",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "sync": "node scripts/sync-versions.mjs && node scripts/sync-writing.mjs && node scripts/stamp-chrome.mjs",
+    "check": "SYNC_OFFLINE=1 node scripts/sync-versions.mjs --check && SYNC_OFFLINE=1 node scripts/sync-writing.mjs --check && node scripts/stamp-chrome.mjs --check && node scripts/check-links.mjs"
+  }
+}

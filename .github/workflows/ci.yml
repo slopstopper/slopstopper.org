@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Unit tests
+        run: node --test
+      - name: "Generated regions match committed data (offline; upstream drift is sync-site's job)"
+        env:
+          SYNC_OFFLINE: "1"
+        run: |
+          node scripts/stamp-chrome.mjs --check
+          node scripts/sync-writing.mjs --check
+          node scripts/sync-versions.mjs --check
+      - name: Links, anchors and no runtime external calls
+        run: node scripts/check-links.mjs

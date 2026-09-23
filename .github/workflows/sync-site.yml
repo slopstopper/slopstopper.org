@@ -1,0 +1,53 @@
+name: Sync site
+
+# Keeps the generated regions of every page current: version pills from each
+# tool's latest GitHub Release, the writing list from slopstopper/plumb-line
+# docs/content, and the shared header/footer from templates/. Runs daily, on
+# manual dispatch, and on a repository_dispatch ping — plumb-line's release
+# workflow fires `{"event_type":"tool-released"}` for near-instant updates.
+
+on:
+  schedule:
+    - cron: "17 6 * * *"   # 06:17 UTC daily
+  workflow_dispatch:
+  repository_dispatch:
+    types: [tool-released]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-site
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Regenerate pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SYNC_TIMESTAMP: ${{ github.event.repository.updated_at }}
+        run: |
+          node scripts/sync-versions.mjs
+          node scripts/sync-writing.mjs
+          node scripts/stamp-chrome.mjs
+          node scripts/check-links.mjs
+
+      - name: Commit changes
+        run: |
+          if [[ -z "$(git status --porcelain data/ '*.html')" ]]; then
+            echo "No changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ '*.html'
+          git commit -m "chore: sync site from tool releases and templates"
+          git push
