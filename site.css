@@ -376,4 +376,9 @@ body.pl-hanging #plumb{animation:none}                 /* no weight-shift on a p
 .form .notice a{color:var(--fg); border-bottom:1px solid var(--red)}
 .sent{display:none; border:1px solid var(--red); border-radius:3px; padding:1.1rem 1.2rem; margin:0 0 2rem; background:var(--red-soft)}
 .sent.show{display:block}
-.privacy h2{margin-top:2.6rem} .privacy p,.privacy li{max-width:64ch} .privacy .meta{font-family:var(--mono); font-size:.78rem; color:var(--muted)}
+/* legal text reads as one document: tight sections, no chapter padding, no scroll-reveal */
+.privacy section{padding-block:1.6rem} .privacy section + section{border-top:0}
+.privacy .hero{padding-bottom:1rem}
+.privacy h2{font-size:clamp(1.25rem,2vw,1.6rem); margin:0 0 .8rem} .privacy p,.privacy li{max-width:64ch}
+.privacy .meta{font-family:var(--mono); font-size:.78rem; color:var(--muted)}
+.privacy .reveal{opacity:1; transform:none; transition:none}
