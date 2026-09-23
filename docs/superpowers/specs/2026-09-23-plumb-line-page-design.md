@@ -23,7 +23,7 @@ revisited once seen).
 | Plumb palette | The **video** palette (orange body, deeper flat green) so site and TikTok/Instagram agree | Canon-drawing yellow body |
 | Plumb role | One hero Plumb; grounded idle; amber bob flash triggered by the taint example; wave on hover/tap | Per-section Plumbs; static Plumb |
 | Idle motion | **Grounded** in the hero (phones/touch): breathe, blink, no rotation. Hanging (desktop): the figure itself does not sway; the line's pendulum physics carries it, and the weight-shift idle is off so the string stays centred on the bob | Rig-test sway of the figure around the bob tip |
-| Gutter plumb line | **Superseded 2026-09-23 (owner, after seeing it):** on viewports ≥ 760 px with a fine pointer, Plumb *is* the bob: `site.js` moves the hero figure into the gutter line, the hero collapses to text, swing physics applies with a tighter cap, and gutter section numbers fade while Plumb passes. Phones/touch keep the grounded hero Plumb with the line hidden | Hiding the line; two plumb things |
+| Gutter plumb line | **Superseded 2026-09-23 (owner, after seeing it):** Plumb *is* the bob on **every viewport**: `site.js` moves the hero figure into the gutter line, the hero collapses to text, swing physics applies with a tighter cap, and gutter section numbers fade while Plumb passes. 72 px figure ≥ 760 px, 48 px below; the page widens its phone gutter to 3.5rem. The line is 62vh site-wide (was 88vh). The hero Plumb is the no-JS fallback | Hiding the line; desktop-only pendulum; two plumb things |
 | Prose | Reused verbatim from owner-approved sources (README, HQ canon lines); new text limited to headings and link labels | Claude-written marketing copy |
 
 ## Constraints (inherit sub-project 1's, plus)
@@ -89,8 +89,8 @@ reads on ink. Uniform stroke width 9 (viewBox units), round joins, no rough
 filter: the flat video look.
 
 Proportions from the video pose: head ≈ 1.4× body width, wide rounded
-blob, **right side wider and lower than the left**; small bob (r ≈ 16) on a
-short stem; pear body; stubby legs; oval feet. Eyes: dark ovals, **right
+blob, **right side wider and lower than the left**; bob r = 30 on a
+short stem (canon proportion: about a fifth of the head's width; reads at 48 px); pear body; stubby legs; oval feet. Eyes: dark ovals, **right
 rx/ry ≥ 1.35× left**. Chest mark: PL ligature, stroke-drawn, right-reading.
 
 ## Behaviour (CSS keyframes + ≈30 lines in `site.js`, all guarded by
