@@ -46,7 +46,8 @@ export async function checkPage(file, html, readOther) {
   const problems = [];
   for (const { value } of extractRefs(html)) {
     if (SKIP.test(value)) continue;
-    const [path, hash] = value.split("#");
+    const [pathWithQuery, hash] = value.split("#");
+    const path = pathWithQuery.split("?")[0];   // ?v=<hash> cache-busting queries do not change the file
     if (path === "") {
       if (!hasId(html, hash)) problems.push(`${file}: anchor #${hash} not found in page`);
       continue;

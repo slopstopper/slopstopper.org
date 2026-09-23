@@ -58,3 +58,29 @@ test("inlineAssets names page and path when the asset is missing", async () => {
 test("inlineAssets leaves a page with no inline regions untouched", async () => {
   assert.equal(await inlineAssets("<body>x</body>", "a.html", readAsset), "<body>x</body>");
 });
+
+import { fingerprintAssets } from "../scripts/stamp-chrome.mjs";
+
+const readHash = async (p) => ({ "site.css": "aaaaaaaa", "site.js": "bbbbbbbb" })[p] || null;
+
+test("fingerprintAssets adds ?v=<hash> to site.css and site.js links at any depth", async () => {
+  const page = `<link rel="stylesheet" href="../site.css">\n<script src="../site.js"></script>\n<link rel="icon" href="../assets/favicon.svg">`;
+  const out = await fingerprintAssets(page, "plumb-line/index.html", readHash);
+  assert.match(out, /href="\.\.\/site\.css\?v=aaaaaaaa"/);
+  assert.match(out, /src="\.\.\/site\.js\?v=bbbbbbbb"/);
+  assert.match(out, /href="\.\.\/assets\/favicon\.svg"/);
+});
+
+test("fingerprintAssets replaces a stale hash and is idempotent", async () => {
+  const page = `<link rel="stylesheet" href="site.css?v=00000000"><script src="site.js?v=deadbeef"></script>`;
+  const once = await fingerprintAssets(page, "index.html", readHash);
+  assert.equal(once, `<link rel="stylesheet" href="site.css?v=aaaaaaaa"><script src="site.js?v=bbbbbbbb"></script>`);
+  assert.equal(await fingerprintAssets(once, "index.html", readHash), once);
+});
+
+test("fingerprintAssets fails naming the page when an asset is missing", async () => {
+  await assert.rejects(
+    () => fingerprintAssets(`<script src="site.js"></script>`, "privacy/index.html", async () => null),
+    /privacy\/index\.html: asset site\.js does not exist/
+  );
+});
