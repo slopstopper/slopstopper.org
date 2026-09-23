@@ -2,7 +2,7 @@
      style="--pl-head:#2e9e3a;--pl-body:#ff9a1f;--pl-trim:#f47b12;--pl-green:#3fb043;--pl-line:#141414;--pl-amber:#fb9902">
   <!-- Plumb — vector reference. Figure axis x=300. Asymmetry is the character: the head is
        wider and lower on the right with a larger right eye; the body is a centred pear,
-       narrow at the collar and widest low. Limbs are drawn BEFORE the body so they grow out of it rather than bolt on.
+       narrow at the collar and widest low. Legs are drawn BEFORE the body so they grow out of it; arms lie IN FRONT of the body, hanging from the shoulders beside the hips, as in the canon drawing.
        Chest mark is the PL ligature. -->
   <title id="plumb-title">Plumb, the plumb-line character</title>
   <g fill="none" stroke="var(--pl-line)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
@@ -17,17 +17,6 @@
     </g>
 
     <!-- limbs first: their roots sit inside the body silhouette -->
-    <g id="arm-l">
-      <path d="M 254 530 L 212 662" stroke-width="32"/>
-      <path d="M 254 530 L 212 662" stroke="var(--pl-body)" stroke-width="16"/>
-      <path d="M 198 686 C 188 668 202 656 216 664 C 230 672 226 694 210 696 C 202 698 200 692 198 686 Z" fill="var(--pl-green)" stroke-width="7"/>
-    </g>
-    <g id="arm-r">
-      <path d="M 346 530 L 388 662" stroke-width="32"/>
-      <path d="M 346 530 L 388 662" stroke="var(--pl-body)" stroke-width="16"/>
-      <path id="hand-heart" fill="var(--pl-green)" stroke-width="7"
-        d="M 392 694 C 368 678 370 652 390 662 C 410 650 416 676 392 694 Z"/>
-    </g>
     <g id="legs">
       <g id="leg-l">
         <path fill="var(--pl-trim)" d="M 252 704 C 248 746 252 780 260 800 L 290 798 C 286 778 286 744 288 708 Z"/>
@@ -45,6 +34,17 @@
         d="M 300 466 C 262 466 242 490 234 534 C 220 596 186 646 190 690 C 196 726 246 736 300 736 C 354 736 404 726 410 690 C 414 646 380 596 366 534 C 358 490 338 466 300 466 Z"/>
       <path id="mark-pl" stroke-width="10"
         d="M 280 548 V 656 H 322 M 280 548 H 306 C 338 548 338 600 306 600 H 280"/>
+    </g>
+    <g id="arm-l">
+      <path d="M 244 536 L 214 664" stroke-width="32"/>
+      <path d="M 244 536 L 214 664" stroke="var(--pl-body)" stroke-width="16"/>
+      <path d="M 200 690 C 190 672 204 660 218 668 C 232 676 228 698 212 700 C 204 702 202 696 200 690 Z" fill="var(--pl-green)" stroke-width="7"/>
+    </g>
+    <g id="arm-r">
+      <path d="M 356 536 L 386 664" stroke-width="32"/>
+      <path d="M 356 536 L 386 664" stroke="var(--pl-body)" stroke-width="16"/>
+      <path id="hand-heart" fill="var(--pl-green)" stroke-width="7"
+        d="M 388 698 C 364 682 366 656 386 666 C 406 654 412 680 388 698 Z"/>
     </g>
     <rect id="collar" x="250" y="442" width="100" height="30" rx="14" fill="var(--pl-trim)"/>
 

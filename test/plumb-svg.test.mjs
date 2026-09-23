@@ -55,10 +55,11 @@ test("body is a centred pear: symmetric about x=300, widest in the lower half", 
   assert.ok(Math.max(...topQuarter) <= 0.30 * w, `shoulders too wide: ${Math.max(...topQuarter)} of ${w}`);
 });
 
-test("limbs are drawn before the body so they emerge from it", () => {
-  const order = ["arm-l", "arm-r", "legs", "body-shape", "collar"].map((id) => svg.indexOf(`id="${id}"`));
-  assert.ok(order[0] < order[3] && order[1] < order[3] && order[2] < order[3], "arms and legs before body");
-  assert.ok(order[3] < order[4], "collar over body");
+test("legs are drawn before the body; arms lie in front of it (canon), under the collar", () => {
+  const at = (id) => svg.indexOf(`id="${id}"`);
+  assert.ok(at("legs") < at("body-shape"), "legs before body");
+  assert.ok(at("body-shape") < at("arm-l") && at("body-shape") < at("arm-r"), "arms after body");
+  assert.ok(at("arm-r") < at("collar"), "collar over arms");
 });
 
 test("the bob matches canon proportion (about a fifth of the head): r >= 28 in a 600-wide viewBox", () => {
