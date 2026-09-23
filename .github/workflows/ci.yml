@@ -18,7 +18,7 @@ jobs:
           node-version: "20"
       - name: Unit tests
         run: node --test
-      - name: Generated regions are in sync with committed data (offline: upstream drift is sync-site's job, not this PR's)
+      - name: "Generated regions match committed data (offline; upstream drift is sync-site's job)"
         env:
           SYNC_OFFLINE: "1"
         run: |
