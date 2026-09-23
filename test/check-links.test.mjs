@@ -47,3 +47,10 @@ test("a listed page that does not exist fails with the path, not a stack trace",
     /ghost\/index\.html: page listed in scripts\/pages\.mjs does not exist/
   );
 });
+
+test("a ?v= cache-busting query on a relative asset is ignored when resolving the file", async () => {
+  const html = `<link rel="stylesheet" href="../site.css?v=abcdef12"><script src="../missing.js?v=1"></script>`;
+  const problems = await checkPage("ok/sub/index.html", html, readOther);
+  assert.equal(problems.length, 1, problems.join("\n"));
+  assert.match(problems[0], /missing\.js/);
+});
