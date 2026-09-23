@@ -4,7 +4,10 @@
  * into every page listed in scripts/pages.mjs, between
  *   <!-- chrome:header --> … <!-- /chrome:header -->
  *   <!-- chrome:footer --> … <!-- /chrome:footer -->
- * rewriting {{root}} to the relative prefix for that page's depth.
+ * rewriting {{root}} to the relative prefix for that page's depth. Also fills
+ *   <!-- inline:PATH --> … <!-- /inline:PATH -->
+ * with the file at PATH (repo-relative), so an asset such as assets/plumb.svg
+ * stays an editable file yet lands inline where CSS and JS can reach it.
  *
  * Usage: node scripts/stamp-chrome.mjs [--check]
  *   --check  exit 1 if any page would change; writes nothing.
@@ -24,6 +27,32 @@ export function stampPage(html, templates, root, file) {
   return out;
 }
 
+const INLINE_OPEN = /<!-- inline:([^\s]+) -->/g;
+
+/** Fill every <!-- inline:PATH --> region with the asset readAsset(PATH) returns. */
+export async function inlineAssets(html, file, readAsset) {
+  const paths = [...new Set([...html.matchAll(INLINE_OPEN)].map((m) => m[1]))];
+  let out = html;
+  for (const p of paths) {
+    const asset = await readAsset(p);
+    if (asset === null) throw new Error(`${file}: inline asset ${p} does not exist`);
+    const name = `inline:${p}`;
+    const open = `<!-- ${name} -->`, close = `<!-- /${name} -->`;
+    const content = `\n${asset.trim()}\n`;
+    let cursor = 0, a;
+    while ((a = out.indexOf(open, cursor)) !== -1) {
+      out = out.slice(0, a) + replaceRegion(out.slice(a), name, content, file);
+      cursor = a + open.length + content.length + close.length;
+    }
+  }
+  return out;
+}
+
+async function readAssetFromRoot(p) {
+  try { return await readFile(resolve(ROOT, p), "utf8"); }
+  catch (e) { if (e.code === "ENOENT") return null; throw e; }
+}
+
 export async function loadTemplates() {
   const [header, footer] = await Promise.all([
     readFile(resolve(ROOT, "templates/header.html"), "utf8"),
@@ -37,7 +66,8 @@ export async function run({ check = false } = {}) {
   const changed = [];
   for (const p of PAGES) {
     const prev = await readPage(p.file);
-    const next = stampPage(prev, templates, rootFor(p.depth), p.file);
+    const stamped = stampPage(prev, templates, rootFor(p.depth), p.file);
+    const next = await inlineAssets(stamped, p.file, readAssetFromRoot);
     if (await writeIfChanged(p.file, next, prev, check)) changed.push(p.file);
   }
   return changed;
