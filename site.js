@@ -47,7 +47,7 @@
   // scroll reveal
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if(!reduce && 'IntersectionObserver' in window){
-    document.querySelectorAll('section > :not(.snum), .tool').forEach(function(el){ el.classList.add('reveal'); });
+    document.querySelectorAll('section > *, .tool').forEach(function(el){ el.classList.add('reveal'); });
     var io = new IntersectionObserver(function(es){
       es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
     }, {rootMargin:'0px 0px -8% 0px', threshold:0.08});
@@ -97,11 +97,14 @@
   place();
   window.addEventListener('resize', place);
 
+  if(!reduce) grab.addEventListener('pointerdown', function(e){ e.preventDefault(); kick(e.clientX); });
   if(canSwing){
     plumb.classList.add('swingable');
-    grab.addEventListener('pointerdown', function(e){ e.preventDefault(); kick(e.clientX); });
+  } else if(plumb.classList.contains('plumb--character')){
+    grab.style.pointerEvents='none';               // Plumb himself takes the tap (site.js below); no double kick
   } else {
-    grab.style.pointerEvents='none';               // no click strip on touch / coarse pointers
+    // touch / coarse pointer: no full-height strip, but the bob is tappable (a generous zone around it)
+    grab.style.top='auto'; grab.style.bottom='-18px'; grab.style.height='80px';
   }
 
   if(!reduce){ theta=0.15; omega=-0.10; physics(); }   // intro swing
@@ -136,19 +139,6 @@
     document.body.classList.add('pl-hanging');
     hang.parentNode.dataset.maxSwing = window.innerWidth<760 ? '52' : '110';   // wider swing where the gutter allows it
     window.dispatchEvent(new Event('resize'));   // let the swing code re-measure its length
-    // right of way: fade any gutter section number the hanging figure passes over
-    var snums=[].slice.call(document.querySelectorAll('.snum')), ticking=false;
-    function yieldPass(){
-      ticking=false;
-      var r=hang.getBoundingClientRect();
-      snums.forEach(function(n){
-        var b=n.getBoundingClientRect();
-        n.classList.toggle('yield', b.bottom>r.top-8 && b.top<r.bottom+8);
-      });
-    }
-    window.addEventListener('scroll', function(){ if(!ticking){ ticking=true; requestAnimationFrame(yieldPass); } }, {passive:true});
-    window.addEventListener('resize', yieldPass);
-    yieldPass();
   }
   // detection: the bob holds amber for as long as the law block (the taint example) is in view
   var law=document.getElementById('law');

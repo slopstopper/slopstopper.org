@@ -74,10 +74,10 @@ a{color:inherit; text-decoration:none}
   transition:opacity .4s ease}
 /* tuck the line away before it can cross the footer / closer text */
 .plumb.tucked{opacity:0}
-.plumb.tucked .grab{pointer-events:none}
+.plumb.tucked .grab,.plumb.tucked .bob{pointer-events:none}
 .plumb .string{position:absolute; top:0; bottom:34px; left:-1px; width:2px; border-radius:2px;
   background:linear-gradient(var(--hair-strong), var(--red) 55%, var(--red))}
-.plumb .bob{position:absolute; bottom:0; left:-8px; width:16px; height:34px; transition:transform .18s ease;
+.plumb .bob{position:absolute; bottom:0; left:-8px; width:16px; height:34px; transition:transform .18s ease; pointer-events:auto; cursor:pointer;
   filter:drop-shadow(0 3px 7px color-mix(in srgb, var(--red) 45%, transparent))}
 .plumb .grab{position:absolute; top:0; bottom:-14px; left:-24px; width:48px;
   pointer-events:auto; cursor:pointer; touch-action:pan-y}
@@ -122,11 +122,6 @@ nav.links a:hover::after{right:0}
 /* ---------- section chrome ---------- */
 section{position:relative; padding-block:clamp(4.5rem,10vw,8.5rem)}
 section + section{border-top:1px solid var(--hair)}
-.snum{position:absolute; left:calc(-1 * var(--gutter)); top:clamp(4.5rem,10vw,8.5rem);
-  width:var(--gutter); font-family:var(--mono); font-size:.7rem; letter-spacing:.1em;
-  color:var(--muted); line-height:1.5}
-.snum b{display:block; color:var(--red); font-weight:600}
-@media(max-width:640px){.snum{display:none}}
 .eyebrow{font-family:var(--mono); font-size:.74rem; letter-spacing:.2em;
   text-transform:uppercase; color:var(--red); margin:0 0 1.4rem}
 h2{font-family:var(--disp); font-weight:700; letter-spacing:-0.03em; line-height:.98;
@@ -335,8 +330,6 @@ body.pl-hanging .plhero{grid-template-columns:1fr}
 }
 @media(max-width:640px){ body[data-page="plumb-line"]{--gutter:3.5rem} }   /* room for the 48px figure beside the text column */
 body.pl-hanging #plumb{animation:none}                 /* no weight-shift on a pendulum: keeps the string centred on the bob */
-.snum{transition:opacity .25s ease}
-.snum.yield{opacity:.12}                                /* Plumb has right of way past the section numbers */
 
 /* ---------- Plumb: grounded idle (no-JS hero), detection flash, limb physics hooks ---------- */
 #plumb #head,#plumb #body{transform-box:view-box; transform-origin:300px 800px; animation:pl-breathe 4s ease-in-out infinite}
