@@ -153,7 +153,9 @@ site (ADR-style, nothing deleted).
 Feedback form migration and privacy notice (3), other tool pages (4), the
 animation embed (5), home-page copy and footer (6), the retired-site
 redirects (3). The swing/pendulum idea is parked, not rejected: revisit
-after the page is seen live.
+after the page is seen live. Owner note (2026-09-23): if a pendulum Plumb
+is tried, it would **replace** the gutter plumb bob on this page rather
+than sit beside it, so the page has one plumb thing either way.
 
 ## Acceptance
 
