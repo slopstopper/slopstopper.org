@@ -15,7 +15,7 @@ plumb-line repository.
 | --- | --- | --- |
 | Form backend | Keep the existing Formspree endpoint (`/f/mwvdqwpe`) | Email-only; Cloudflare Worker → private repo issues |
 | Controller identity | "run by an individual based in the UK"; name available on request; contact `slopstopperskills@gmail.com`. No commentary on business status | Publishing the owner's name; GitHub-issue-only contact |
-| Retention (proposed, owner to confirm in review) | Submissions kept until acted on, deleted from Formspree and the mailbox within 12 months | Indefinite |
+| Retention (owner decision 2026-09-23) | Kept with email for up to 24 months; then identifying details deleted from Formspree and the mailbox, technical content kept anonymised | 12 months; indefinite |
 | Redirects | Meta-refresh stubs at the old URLs; Pages stays on for 3 months (issue filed) | Deleting `docs/` at once (breaks inbound links) |
 | Prose rule | The notice is legal text: Claude drafts, owner approves/edits before merge | — |
 

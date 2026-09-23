@@ -15,7 +15,8 @@ test("privacy notice names every processor and the regulator", () => {
 });
 
 test("privacy notice states retention and rights, and is dated", () => {
-  assert.match(html, /12 months/);
+  assert.match(html, /24 months/);
+  assert.match(html, /anything else that identifies you are deleted/);
   assert.match(html, /erasure|delete/i);
   assert.match(html, /Last updated:?\s*<?[^>]*>?\s*2026-\d{2}-\d{2}/);
 });
