@@ -22,8 +22,8 @@ revisited once seen).
 | Plumb medium | Vector SVG redraw, editable and animatable | Owner PNG exports as-is; PNG body + SVG bob |
 | Plumb palette | The **video** palette (orange body, deeper flat green) so site and TikTok/Instagram agree | Canon-drawing yellow body |
 | Plumb role | One hero Plumb; grounded idle; amber bob flash triggered by the taint example; wave on hover/tap | Per-section Plumbs; static Plumb |
-| Idle motion | **Grounded**: Plumb stands and walks in the videos; the bob on its head *is* the plumb-bob. No pendulum sway (owner correction) | Rig-test sway around the bob tip |
-| Gutter plumb line | Hidden on this page so two plumb things do not crowd the hero | Keep the home page's swinging line |
+| Idle motion | **Grounded** in the hero (phones/touch): breathe, blink, no rotation. Hanging (desktop): the figure itself does not sway; the line's pendulum physics carries it, and the weight-shift idle is off so the string stays centred on the bob | Rig-test sway of the figure around the bob tip |
+| Gutter plumb line | **Superseded 2026-09-23 (owner, after seeing it):** on viewports ≥ 760 px with a fine pointer, Plumb *is* the bob: `site.js` moves the hero figure into the gutter line, the hero collapses to text, swing physics applies with a tighter cap, and gutter section numbers fade while Plumb passes. Phones/touch keep the grounded hero Plumb with the line hidden | Hiding the line; two plumb things |
 | Prose | Reused verbatim from owner-approved sources (README, HQ canon lines); new text limited to headings and link labels | Claude-written marketing copy |
 
 ## Constraints (inherit sub-project 1's, plus)
@@ -152,10 +152,9 @@ site (ADR-style, nothing deleted).
 
 Feedback form migration and privacy notice (3), other tool pages (4), the
 animation embed (5), home-page copy and footer (6), the retired-site
-redirects (3). The swing/pendulum idea is parked, not rejected: revisit
-after the page is seen live. Owner note (2026-09-23): if a pendulum Plumb
-is tried, it would **replace** the gutter plumb bob on this page rather
-than sit beside it, so the page has one plumb thing either way.
+redirects (3). The pendulum idea was tried the same day and **adopted**
+(owner: "looks great, definitely keep"): Plumb replaces the gutter bob on
+desktop, so the page has one plumb thing either way.
 
 ## Acceptance
 
