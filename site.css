@@ -317,3 +317,25 @@ body[data-page="plumb-line"] nav.links a[data-nav="plumb-line"]::after{right:0}
 .deeper a:hover{color:var(--red); border-color:var(--red)}
 /* one plumb thing per page: hide the gutter line where Plumb stands */
 body[data-page="plumb-line"] .plumb, body[data-page="plumb-line"] .plumb-mark{display:none}
+
+/* ---------- Plumb: grounded idle, detection flash, wave ---------- */
+[data-theme="dark"] #plumb{--pl-line:#2a2a2e}
+#plumb #head,#plumb #body{transform-box:view-box; transform-origin:300px 800px; animation:pl-breathe 4s ease-in-out infinite}
+#plumb{animation:pl-shift 6s ease-in-out infinite}
+#plumb #eye-l,#plumb #eye-r{transform-box:fill-box; transform-origin:center; animation:pl-blink 4s infinite}
+#plumb #eye-r{animation-delay:.05s}
+#plumb #bob{transition:fill .08s}
+#plumb.detect #bob{fill:var(--pl-amber)}
+#plumb.detect #rays{transform-box:fill-box; transform-origin:center; animation:pl-rays 1.2s ease-out forwards}
+#plumb #arm-r{transform-box:view-box; transform-origin:394px 520px}
+#plumb.wave #arm-r{animation:pl-wave .8s ease-in-out}
+@keyframes pl-breathe{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.015)}}
+@keyframes pl-shift{0%,100%{transform:translateX(0)}50%{transform:translateX(1.2px)}}
+@keyframes pl-blink{0%,93%,100%{transform:scaleY(1)}95.5%,97%{transform:scaleY(.06)}}
+@keyframes pl-rays{0%{opacity:0;transform:scale(.6)}25%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.1)}}
+@keyframes pl-wave{0%,100%{transform:rotate(0)}50%{transform:rotate(-25deg)}}
+@media(prefers-reduced-motion:reduce){
+  #plumb,#plumb #head,#plumb #body,#plumb #eye-l,#plumb #eye-r{animation:none}
+  #plumb.detect #rays{animation:none; opacity:0}
+  #plumb.wave #arm-r{animation:none}
+}

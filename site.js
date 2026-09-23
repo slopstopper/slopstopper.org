@@ -123,3 +123,30 @@
     }
   }
 })();
+// ---- Plumb (plumb-line page): grounded idle is CSS; this adds the once-only
+//      detection flash when the law block scrolls in, and a wave on hover/tap ----
+(function(){
+  var fig=document.getElementById('plumb'); if(!fig) return;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var law=document.getElementById('law'), fired=false;
+  function flash(){
+    if(fired) return; fired=true;
+    fig.classList.add('detect');
+    setTimeout(function(){ fig.classList.remove('detect'); }, reduce ? 900 : 1200);
+  }
+  if(law){
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(es){
+        es.forEach(function(en){ if(en.intersectionRatio>=0.4){ flash(); io.disconnect(); } });
+      }, {threshold:[0.4]});
+      io.observe(law);
+    } else { flash(); }
+  }
+  if(!reduce){
+    var waving=false;
+    function wave(){ if(waving) return; waving=true; fig.classList.add('wave');
+      setTimeout(function(){ fig.classList.remove('wave'); waving=false; }, 800); }
+    fig.addEventListener('pointerenter', wave);
+    fig.addEventListener('click', wave);
+  }
+})();
