@@ -1,7 +1,9 @@
 <svg id="plumb" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" role="img" aria-labelledby="plumb-title"
      style="--pl-head:#2e9e3a;--pl-body:#ff9a1f;--pl-trim:#f47b12;--pl-green:#3fb043;--pl-line:#141414;--pl-amber:#fb9902">
-  <!-- Plumb — vector reference. Figure axis x=300. Head is deliberately asymmetric:
-       right side wider and lower, right eye larger (canon). Chest mark is the PL ligature. -->
+  <!-- Plumb — vector reference. Figure axis x=300. Asymmetry is the character: the head is
+       wider and lower on the right with a larger right eye; the body is a pear that leans the
+       same way. Limbs are drawn BEFORE the body so they grow out of it rather than bolt on.
+       Chest mark is the PL ligature. -->
   <title id="plumb-title">Plumb, the plumb-line character</title>
   <g fill="none" stroke="var(--pl-line)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
     <g id="antenna">
@@ -13,37 +15,42 @@
       </g>
       <circle id="bob" cx="300" cy="152" r="16" fill="var(--pl-green)"/>
     </g>
+
+    <!-- limbs first: their roots sit inside the body silhouette -->
+    <g id="arm-l">
+      <path d="M 262 522 C 214 548 190 604 200 660" stroke-width="32"/>
+      <path d="M 262 522 C 214 548 190 604 200 660" stroke="var(--pl-body)" stroke-width="16"/>
+      <path d="M 186 682 C 176 664 190 652 204 660 C 218 668 214 690 198 692 C 190 694 188 688 186 682 Z" fill="var(--pl-green)" stroke-width="7"/>
+    </g>
+    <g id="arm-r">
+      <path d="M 344 520 C 398 540 428 596 424 656" stroke-width="32"/>
+      <path d="M 344 520 C 398 540 428 596 424 656" stroke="var(--pl-body)" stroke-width="16"/>
+      <path id="hand-heart" fill="var(--pl-green)" stroke-width="7"
+        d="M 428 690 C 404 674 406 648 426 658 C 446 646 452 672 428 690 Z"/>
+    </g>
+    <g id="legs" fill="var(--pl-trim)">
+      <path d="M 254 700 C 250 740 254 772 262 792 L 292 790 C 288 770 288 738 290 704 Z"/>
+      <path d="M 316 706 C 314 740 316 772 322 790 L 352 792 C 358 770 356 738 350 700 Z"/>
+    </g>
+    <g id="feet" fill="var(--pl-green)">
+      <path d="M 236 800 C 240 786 262 782 282 786 C 300 790 302 806 288 814 C 268 822 236 818 236 800 Z"/>
+      <path d="M 366 802 C 362 786 340 782 320 788 C 304 794 306 808 322 816 C 342 822 368 818 366 802 Z"/>
+    </g>
+
+    <!-- body: pear, narrow at the collar, widest low and a little right -->
+    <g id="body">
+      <path id="body-shape" fill="var(--pl-body)"
+        d="M 298 466 C 250 466 218 500 208 556 C 196 626 214 712 300 722 C 388 732 440 660 428 574 C 418 508 372 466 298 466 Z"/>
+      <path id="mark-pl" stroke-width="10"
+        d="M 280 548 V 656 H 322 M 280 548 H 306 C 338 548 338 600 306 600 H 280"/>
+    </g>
+    <rect id="collar" x="250" y="442" width="100" height="30" rx="14" fill="var(--pl-trim)"/>
+
     <g id="head">
       <path id="head-shape" fill="var(--pl-head)"
         d="M 296 204 C 218 204 166 246 164 316 C 162 388 200 440 292 446 C 396 452 480 414 480 338 C 480 260 402 204 296 204 Z"/>
       <ellipse id="eye-l" cx="244" cy="322" rx="21" ry="30" fill="var(--pl-line)" stroke="none"/>
       <ellipse id="eye-r" cx="378" cy="318" rx="31" ry="44" fill="var(--pl-line)" stroke="none"/>
-    </g>
-    <rect id="collar" x="250" y="442" width="100" height="30" rx="14" fill="var(--pl-trim)"/>
-    <g id="body">
-      <path id="body-shape" fill="var(--pl-body)"
-        d="M 300 470 C 236 470 196 520 186 590 C 174 676 222 742 300 744 C 378 742 426 676 414 590 C 404 520 364 470 300 470 Z"/>
-      <path id="mark-pl" stroke-width="10"
-        d="M 280 556 V 664 H 322 M 280 556 H 308 C 340 556 340 608 308 608 H 280"/>
-    </g>
-    <g id="arm-l">
-      <path d="M 206 520 C 172 560 164 620 184 662" stroke-width="34"/>
-      <path d="M 206 520 C 172 560 164 620 184 662" stroke="var(--pl-body)" stroke-width="18"/>
-      <circle cx="182" cy="674" r="16" fill="var(--pl-green)" stroke-width="7"/>
-    </g>
-    <g id="arm-r">
-      <path d="M 394 520 C 428 560 436 620 416 662" stroke-width="34"/>
-      <path d="M 394 520 C 428 560 436 620 416 662" stroke="var(--pl-body)" stroke-width="18"/>
-      <path id="hand-heart" fill="var(--pl-green)" stroke-width="7"
-        d="M 418 690 C 394 672 398 646 418 656 C 438 646 442 672 418 690 Z"/>
-    </g>
-    <g id="legs" fill="var(--pl-trim)">
-      <rect x="256" y="732" width="36" height="58" rx="14"/>
-      <rect x="308" y="732" width="36" height="58" rx="14"/>
-    </g>
-    <g id="feet" fill="var(--pl-green)">
-      <ellipse cx="266" cy="800" rx="40" ry="19"/>
-      <ellipse cx="334" cy="800" rx="40" ry="19"/>
     </g>
   </g>
 </svg>

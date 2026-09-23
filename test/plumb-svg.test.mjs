@@ -40,3 +40,21 @@ test("no scripts, images or external urls; under 6 KB", async () => {
   assert.doesNotMatch(svg, /<script|<image|url\(https?:/);
   assert.ok((await stat(FILE)).size <= 6144);
 });
+
+test("body is pear-shaped with a right lean like the head (not a symmetric oval)", () => {
+  const d = attr("body-shape", "d");
+  const pts = [...d.matchAll(/(-?\d+(?:\.\d+)?)[ ,](-?\d+(?:\.\d+)?)/g)].map((m) => [parseFloat(m[1]), parseFloat(m[2])]);
+  const xs = pts.map((p) => p[0]), ys = pts.map((p) => p[1]);
+  const minX = Math.min(...xs), maxX = Math.max(...xs), w = maxX - minX;
+  assert.ok((maxX - 300) - (300 - minX) >= 0.04 * w, `right lean: right ${maxX - 300} left ${300 - minX}`);
+  // pear: the widest points sit in the lower half
+  const midY = (Math.min(...ys) + Math.max(...ys)) / 2;
+  const widestY = pts.filter((p) => p[0] === minX || p[0] === maxX).map((p) => p[1]);
+  assert.ok(widestY.every((y) => y > midY), `widest points at y=${widestY} should be below midline ${midY}`);
+});
+
+test("limbs are drawn before the body so they emerge from it", () => {
+  const order = ["arm-l", "arm-r", "legs", "body-shape", "collar"].map((id) => svg.indexOf(`id="${id}"`));
+  assert.ok(order[0] < order[3] && order[1] < order[3] && order[2] < order[3], "arms and legs before body");
+  assert.ok(order[3] < order[4], "collar over body");
+});
