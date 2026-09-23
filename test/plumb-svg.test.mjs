@@ -41,16 +41,18 @@ test("no scripts, images or external urls; under 6 KB", async () => {
   assert.ok((await stat(FILE)).size <= 6144);
 });
 
-test("body is pear-shaped with a right lean like the head (not a symmetric oval)", () => {
+test("body is a centred pear: symmetric about x=300, widest in the lower half", () => {
   const d = attr("body-shape", "d");
   const pts = [...d.matchAll(/(-?\d+(?:\.\d+)?)[ ,](-?\d+(?:\.\d+)?)/g)].map((m) => [parseFloat(m[1]), parseFloat(m[2])]);
   const xs = pts.map((p) => p[0]), ys = pts.map((p) => p[1]);
   const minX = Math.min(...xs), maxX = Math.max(...xs), w = maxX - minX;
-  assert.ok((maxX - 300) - (300 - minX) >= 0.04 * w, `right lean: right ${maxX - 300} left ${300 - minX}`);
-  // pear: the widest points sit in the lower half
-  const midY = (Math.min(...ys) + Math.max(...ys)) / 2;
+  assert.ok(Math.abs((maxX - 300) - (300 - minX)) <= 0.03 * w, `centred: right ${maxX - 300} left ${300 - minX}`);
+  const minY = Math.min(...ys), maxY = Math.max(...ys), midY = (minY + maxY) / 2;
   const widestY = pts.filter((p) => p[0] === minX || p[0] === maxX).map((p) => p[1]);
   assert.ok(widestY.every((y) => y > midY), `widest points at y=${widestY} should be below midline ${midY}`);
+  // narrow shoulders: no point in the top quarter is further than 30% of the width from the axis
+  const topQuarter = pts.filter((p) => p[1] < minY + (maxY - minY) / 4).map((p) => Math.abs(p[0] - 300));
+  assert.ok(Math.max(...topQuarter) <= 0.30 * w, `shoulders too wide: ${Math.max(...topQuarter)} of ${w}`);
 });
 
 test("limbs are drawn before the body so they emerge from it", () => {
