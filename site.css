@@ -330,6 +330,7 @@ body.pl-hanging .plhero{grid-template-columns:1fr}
 }
 @media(max-width:640px){ body[data-page="plumb-line"]{--gutter:3.5rem} }   /* room for the 48px figure beside the text column */
 body.pl-hanging #plumb{animation:none}                 /* no weight-shift on a pendulum: keeps the string centred on the bob */
+body.pl-hanging #plumb #head,body.pl-hanging #plumb #body{animation:none}   /* no breathing either: scaling from the feet moved the body against the fixed bob */
 
 /* ---------- Plumb: grounded idle (no-JS hero), detection flash, limb physics hooks ---------- */
 #plumb #head,#plumb #body{transform-box:view-box; transform-origin:300px 800px; animation:pl-breathe 4s ease-in-out infinite}
