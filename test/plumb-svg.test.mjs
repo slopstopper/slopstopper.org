@@ -12,7 +12,7 @@ const attr = (id, name) => {
 };
 
 test("required ids exist", () => {
-  for (const id of ["plumb","antenna","bob","rays","head","head-shape","eye-l","eye-r","collar","body","body-shape","mark-pl","arm-l","arm-r","hand-heart","legs","feet"]) {
+  for (const id of ["plumb","antenna","bob","rays","head","head-shape","eye-l","eye-r","collar","body","body-shape","mark-pl","arm-l","arm-r","hand-heart","legs","leg-l","leg-r"]) {
     assert.ok(svg.includes(`id="${id}"`), id);
   }
 });

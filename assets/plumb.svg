@@ -28,13 +28,15 @@
       <path id="hand-heart" fill="var(--pl-green)" stroke-width="7"
         d="M 410 694 C 386 678 388 652 408 662 C 428 650 434 676 410 694 Z"/>
     </g>
-    <g id="legs" fill="var(--pl-trim)">
-      <path d="M 252 704 C 248 746 252 780 260 800 L 290 798 C 286 778 286 744 288 708 Z"/>
-      <path d="M 318 710 C 316 746 318 780 324 798 L 354 800 C 360 778 358 744 352 704 Z"/>
-    </g>
-    <g id="feet" fill="var(--pl-green)">
-      <path d="M 234 808 C 238 794 260 790 280 794 C 298 798 300 814 286 822 C 266 830 234 826 234 808 Z"/>
-      <path d="M 368 810 C 364 794 342 790 322 796 C 306 802 308 816 324 824 C 344 830 370 826 368 810 Z"/>
+    <g id="legs">
+      <g id="leg-l">
+        <path fill="var(--pl-trim)" d="M 252 704 C 248 746 252 780 260 800 L 290 798 C 286 778 286 744 288 708 Z"/>
+        <path fill="var(--pl-green)" d="M 234 808 C 238 794 260 790 280 794 C 298 798 300 814 286 822 C 266 830 234 826 234 808 Z"/>
+      </g>
+      <g id="leg-r">
+        <path fill="var(--pl-trim)" d="M 318 710 C 316 746 318 780 324 798 L 354 800 C 360 778 358 744 352 704 Z"/>
+        <path fill="var(--pl-green)" d="M 368 810 C 364 794 342 790 322 796 C 306 802 308 816 324 824 C 344 830 370 826 368 810 Z"/>
+      </g>
     </g>
 
     <!-- body: pear, narrow at the collar, widest low and a little right -->
