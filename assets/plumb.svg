@@ -1,0 +1,56 @@
+<svg id="plumb" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 900" role="img" aria-labelledby="plumb-title"
+     style="--pl-head:#2e9e3a;--pl-body:#ff9a1f;--pl-trim:#f47b12;--pl-green:#3fb043;--pl-line:#141414;--pl-amber:#fb9902">
+  <!-- Plumb — vector reference. Figure axis x=300. Asymmetry is the character: the head is
+       wider and lower on the right with a larger right eye; the body is a centred pear,
+       narrow at the collar and widest low. Limbs are drawn BEFORE the body so they grow out of it rather than bolt on.
+       Chest mark is the PL ligature. -->
+  <title id="plumb-title">Plumb, the plumb-line character</title>
+  <g fill="none" stroke="var(--pl-line)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <g id="antenna">
+      <line x1="300" y1="180" x2="300" y2="206"/>
+      <g id="rays" stroke="var(--pl-amber)" stroke-width="9" opacity="0">
+        <line x1="300" y1="112" x2="300" y2="90"/><line x1="330" y1="122" x2="346" y2="106"/>
+        <line x1="342" y1="152" x2="364" y2="152"/><line x1="270" y1="122" x2="254" y2="106"/>
+        <line x1="258" y1="152" x2="236" y2="152"/>
+      </g>
+      <circle id="bob" cx="300" cy="152" r="30" fill="var(--pl-green)"/>
+    </g>
+
+    <!-- limbs first: their roots sit inside the body silhouette -->
+    <g id="arm-l">
+      <path d="M 256 526 C 210 552 186 608 194 664" stroke-width="32"/>
+      <path d="M 256 526 C 210 552 186 608 194 664" stroke="var(--pl-body)" stroke-width="16"/>
+      <path d="M 180 686 C 170 668 184 656 198 664 C 212 672 208 694 192 696 C 184 698 182 692 180 686 Z" fill="var(--pl-green)" stroke-width="7"/>
+    </g>
+    <g id="arm-r">
+      <path d="M 344 526 C 390 552 414 608 406 664" stroke-width="32"/>
+      <path d="M 344 526 C 390 552 414 608 406 664" stroke="var(--pl-body)" stroke-width="16"/>
+      <path id="hand-heart" fill="var(--pl-green)" stroke-width="7"
+        d="M 410 694 C 386 678 388 652 408 662 C 428 650 434 676 410 694 Z"/>
+    </g>
+    <g id="legs" fill="var(--pl-trim)">
+      <path d="M 252 704 C 248 746 252 780 260 800 L 290 798 C 286 778 286 744 288 708 Z"/>
+      <path d="M 318 710 C 316 746 318 780 324 798 L 354 800 C 360 778 358 744 352 704 Z"/>
+    </g>
+    <g id="feet" fill="var(--pl-green)">
+      <path d="M 234 808 C 238 794 260 790 280 794 C 298 798 300 814 286 822 C 266 830 234 826 234 808 Z"/>
+      <path d="M 368 810 C 364 794 342 790 322 796 C 306 802 308 816 324 824 C 344 830 370 826 368 810 Z"/>
+    </g>
+
+    <!-- body: pear, narrow at the collar, widest low and a little right -->
+    <g id="body">
+      <path id="body-shape" fill="var(--pl-body)"
+        d="M 300 466 C 262 466 242 490 234 534 C 220 596 186 646 190 690 C 196 726 246 736 300 736 C 354 736 404 726 410 690 C 414 646 380 596 366 534 C 358 490 338 466 300 466 Z"/>
+      <path id="mark-pl" stroke-width="10"
+        d="M 280 548 V 656 H 322 M 280 548 H 306 C 338 548 338 600 306 600 H 280"/>
+    </g>
+    <rect id="collar" x="250" y="442" width="100" height="30" rx="14" fill="var(--pl-trim)"/>
+
+    <g id="head">
+      <path id="head-shape" fill="var(--pl-head)"
+        d="M 296 204 C 218 204 166 246 164 316 C 162 388 200 440 292 446 C 396 452 480 414 480 338 C 480 260 402 204 296 204 Z"/>
+      <ellipse id="eye-l" cx="244" cy="322" rx="21" ry="30" fill="var(--pl-line)" stroke="none"/>
+      <ellipse id="eye-r" cx="378" cy="318" rx="31" ry="44" fill="var(--pl-line)" stroke="none"/>
+    </g>
+  </g>
+</svg>

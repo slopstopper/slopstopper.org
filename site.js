@@ -67,7 +67,7 @@
 
   function place(){
     markX=mark.getBoundingClientRect().left; plumb.style.left=markX+'px';
-    L=plumb.offsetHeight||600; MAXT=Math.min(0.17, 120/L);   // cap swing so the bob stays in the gutter
+    L=plumb.offsetHeight||600; MAXT=Math.min(0.17, (parseFloat(plumb.dataset.maxSwing)||120)/L);   // cap swing so the bob stays in the gutter
   }
   function apply(){ plumb.style.transform='rotate('+theta.toFixed(4)+'rad)'; }
   function step(){
@@ -121,5 +121,52 @@
       };
       window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
     }
+  }
+})();
+// ---- Plumb (plumb-line page): grounded idle is CSS; this adds the once-only
+//      detection flash when the law block scrolls in, and a wave on hover/tap ----
+(function(){
+  var fig=document.getElementById('plumb'); if(!fig) return;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // hang Plumb from the gutter line: the character IS the plumb bob (all viewports; hero Plumb is the no-JS fallback)
+  var hang=document.querySelector('.plumb--character .hang');
+  if(hang){
+    hang.appendChild(fig);
+    document.body.classList.add('pl-hanging');
+    window.dispatchEvent(new Event('resize'));   // let the swing code re-measure its length
+    // right of way: fade any gutter section number the hanging figure passes over
+    var snums=[].slice.call(document.querySelectorAll('.snum')), ticking=false;
+    function yieldPass(){
+      ticking=false;
+      var r=hang.getBoundingClientRect();
+      snums.forEach(function(n){
+        var b=n.getBoundingClientRect();
+        n.classList.toggle('yield', b.bottom>r.top-8 && b.top<r.bottom+8);
+      });
+    }
+    window.addEventListener('scroll', function(){ if(!ticking){ ticking=true; requestAnimationFrame(yieldPass); } }, {passive:true});
+    window.addEventListener('resize', yieldPass);
+    yieldPass();
+  }
+  var law=document.getElementById('law'), fired=false;
+  function flash(){
+    if(fired) return; fired=true;
+    fig.classList.add('detect');
+    setTimeout(function(){ fig.classList.remove('detect'); }, reduce ? 900 : 1200);
+  }
+  if(law){
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(es){
+        es.forEach(function(en){ if(en.intersectionRatio>=0.4){ flash(); io.disconnect(); } });
+      }, {threshold:[0.4]});
+      io.observe(law);
+    } else { flash(); }
+  }
+  if(!reduce){
+    var waving=false;
+    function wave(){ if(waving) return; waving=true; fig.classList.add('wave');
+      setTimeout(function(){ fig.classList.remove('wave'); waving=false; }, 800); }
+    fig.addEventListener('pointerenter', wave);
+    fig.addEventListener('click', wave);
   }
 })();

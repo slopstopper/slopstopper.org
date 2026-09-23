@@ -21,6 +21,7 @@ Add a page by creating the file and listing it in `scripts/pages.mjs`.
 | Header, footer | `<!-- chrome:header -->`, `<!-- chrome:footer -->` | `scripts/stamp-chrome.mjs` | `templates/*.html` |
 | Version pills | `<span data-sync="version:TOOL">` | `scripts/sync-versions.mjs` | latest GitHub Release per repo in `data/versions.json` |
 | Writing list | `<!-- writing:list -->` | `scripts/sync-writing.mjs` | `slopstopper/plumb-line` `docs/content/YYYY-MM-DD-*.md` |
+| Inlined asset | `<!-- inline:PATH -->` | `scripts/stamp-chrome.mjs` | the file at PATH (e.g. `assets/plumb.svg`) |
 
 Edit the template or the source, then `npm run sync` (online: asks GitHub
 for releases and pieces). `npm run check` is what CI runs: it sets
