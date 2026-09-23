@@ -10,7 +10,8 @@
  * data/writing.json (newest first) and rendered from there, so a run with no
  * network still regenerates the pages from the committed JSON.
  *
- * Never invents a row. Usage: node scripts/sync-writing.mjs [--check]
+ * Never invents a row. SYNC_OFFLINE=1 skips the API (CI uses this).
+ * Usage: node scripts/sync-writing.mjs [--check]
  */
 import { readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
@@ -58,6 +59,7 @@ export function renderRows(items) {
 
 /** Returns the sorted piece list, or null if the listing could not be fetched. */
 export async function collect(fetchImpl = fetch) {
+  if (process.env.SYNC_OFFLINE) { console.warn("  writing: SYNC_OFFLINE set, using committed data"); return null; }
   let listing;
   try {
     const r = await fetchImpl(`${API}/repos/${SOURCE_REPO}/contents/${SOURCE_PATH}`, { headers });

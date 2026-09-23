@@ -8,7 +8,7 @@
 import { readFile } from "node:fs/promises";
 import { resolve, posix } from "node:path";
 import { PAGES } from "./pages.mjs";
-import { ROOT, isMain } from "./lib.mjs";
+import { ROOT, readPage, isMain } from "./lib.mjs";
 
 const REF = /\b(href|src)=["']([^"']+)["']/g;
 const SKIP = /^(https?:|mailto:|data:|tel:)/i;
@@ -59,17 +59,24 @@ export async function checkPage(file, html, readOther) {
   return problems;
 }
 
-if (isMain(import.meta.url)) {
+/** Check every listed page; returns the list of problems (empty when clean). */
+export async function checkAll(pages = PAGES) {
   const readOther = async (rel) => {
     try { return await readFile(resolve(ROOT, rel), "utf8"); }
     catch (e) { if (e.code === "ENOENT" || e.code === "EISDIR") return null; throw e; }
   };
   const problems = [];
-  for (const p of PAGES) {
-    const html = await readFile(resolve(ROOT, p.file), "utf8");
+  for (const p of pages) {
+    const html = await readPage(p.file);
     problems.push(...(await checkPage(p.file, html, readOther)));
     for (const tag of externalCalls(html)) problems.push(`${p.file}: runtime external call: ${tag}`);
   }
-  if (problems.length) { console.error(problems.join("\n")); process.exit(1); }
-  console.log(`links: ${PAGES.length} page(s) clean.`);
+  return problems;
+}
+
+if (isMain(import.meta.url)) {
+  checkAll().then((problems) => {
+    if (problems.length) { console.error(problems.join("\n")); process.exit(1); }
+    console.log(`links: ${PAGES.length} page(s) clean.`);
+  }).catch((e) => { console.error(e.message); process.exit(1); });
 }

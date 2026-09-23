@@ -18,7 +18,9 @@ jobs:
           node-version: "20"
       - name: Unit tests
         run: node --test
-      - name: Generated regions are in sync (no token; falls back to committed data)
+      - name: Generated regions are in sync with committed data (offline: upstream drift is sync-site's job, not this PR's)
+        env:
+          SYNC_OFFLINE: "1"
         run: |
           node scripts/stamp-chrome.mjs --check
           node scripts/sync-writing.mjs --check

@@ -33,9 +33,13 @@
   });
 
   // smooth scroll for in-page anchors
-  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+  // nav hrefs are stamped as {{root}}#id (e.g. "./#tools"), so match any
+  // same-page hash link, not only bare "#id"
+  document.querySelectorAll('a[href*="#"]').forEach(function(a){
     a.addEventListener('click', function(e){
-      var el = document.querySelector(a.getAttribute('href'));
+      var u = new URL(a.href, location.href);
+      if(u.pathname !== location.pathname || !u.hash) return;
+      var el = document.getElementById(u.hash.slice(1));
       if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
     });
   });

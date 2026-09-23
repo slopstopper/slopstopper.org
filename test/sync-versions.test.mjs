@@ -42,3 +42,12 @@ test("latestVersion returns null when the API is unreachable", async () => {
     assert.equal(await latestVersion("x/y", fetchImpl), null);
   } finally { console.warn = orig; }
 });
+
+test("latestVersion is offline when SYNC_OFFLINE=1 and never calls fetch", async () => {
+  process.env.SYNC_OFFLINE = "1";
+  try {
+    let called = false;
+    assert.equal(await latestVersion("x/y", async () => { called = true; }), null);
+    assert.equal(called, false);
+  } finally { delete process.env.SYNC_OFFLINE; }
+});

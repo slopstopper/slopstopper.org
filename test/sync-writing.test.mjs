@@ -75,3 +75,13 @@ test("collect returns null on HTTP 403 or network failure", async () => {
     assert.equal(await collect(async () => { throw new Error("ENOTFOUND"); }), null);
   } finally { console.warn = orig; }
 });
+
+test("collect is offline when SYNC_OFFLINE=1 and never calls fetch", async () => {
+  process.env.SYNC_OFFLINE = "1";
+  const orig = console.warn; console.warn = () => {};
+  try {
+    let called = false;
+    assert.equal(await collect(async () => { called = true; }), null);
+    assert.equal(called, false);
+  } finally { delete process.env.SYNC_OFFLINE; console.warn = orig; }
+});

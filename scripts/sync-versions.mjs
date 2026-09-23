@@ -18,6 +18,10 @@
  * Usage:  node scripts/sync-versions.mjs [--check]
  *   --check  exit 1 if any page would change (no writes) — handy in CI.
  *
+ * Offline: set SYNC_OFFLINE=1 to skip the API entirely and regenerate from
+ * data/versions.json — CI uses this so a PR is judged against committed data,
+ * not against whatever upstream released while it was open.
+ *
  * Auth: set GITHUB_TOKEN to raise the API rate limit. The sibling repos are
  * public, so the default Actions token can read their releases.
  */
@@ -52,6 +56,7 @@ function display(tag) {
 export { display };
 
 export async function latestVersion(repo, fetchImpl = fetch) {
+  if (process.env.SYNC_OFFLINE) return null;
   try {
     const r = await fetchImpl(`${API}/repos/${repo}/releases/latest`, { headers });
     if (r.ok) {

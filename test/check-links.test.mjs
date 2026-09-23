@@ -39,3 +39,11 @@ test("externalCalls flags runtime third-party loads", async () => {
   assert.equal(externalCalls(html).length, 1);
   assert.equal(externalCalls(`<a href="https://ok">fine</a><img src="assets/x.png">`).length, 0);
 });
+
+test("a listed page that does not exist fails with the path, not a stack trace", async () => {
+  const { checkAll } = await import("../scripts/check-links.mjs");
+  await assert.rejects(
+    () => checkAll([{ file: "ghost/index.html", page: "ghost", depth: 1 }]),
+    /ghost\/index\.html: page listed in scripts\/pages\.mjs does not exist/
+  );
+});
