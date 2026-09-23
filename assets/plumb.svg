@@ -2,7 +2,7 @@
      style="--pl-head:#2e9e3a;--pl-body:#ff9a1f;--pl-trim:#f47b12;--pl-green:#3fb043;--pl-line:#141414;--pl-amber:#fb9902">
   <!-- Plumb — vector reference. Figure axis x=300. Asymmetry is the character: the head is
        wider and lower on the right with a larger right eye; the body is a centred pear,
-       narrow at the collar and widest low. Legs are drawn BEFORE the body so they grow out of it; arms lie IN FRONT of the body, hanging from the shoulders beside the hips, as in the canon drawing.
+       narrow at the collar and widest low. Legs are drawn BEFORE the body so they grow out of it; arms hang straight down along the body's sides, half over its edge, hands beside the hips (canon standing pose).
        Chest mark is the PL ligature. -->
   <title id="plumb-title">Plumb, the plumb-line character</title>
   <g fill="none" stroke="var(--pl-line)" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
@@ -36,15 +36,15 @@
         d="M 280 548 V 656 H 322 M 280 548 H 306 C 338 548 338 600 306 600 H 280"/>
     </g>
     <g id="arm-l">
-      <path d="M 244 536 L 214 664" stroke-width="32"/>
-      <path d="M 244 536 L 214 664" stroke="var(--pl-body)" stroke-width="16"/>
-      <path d="M 200 690 C 190 672 204 660 218 668 C 232 676 228 698 212 700 C 204 702 202 696 200 690 Z" fill="var(--pl-green)" stroke-width="7"/>
+      <path d="M 232 546 L 204 664" stroke-width="30"/>
+      <path d="M 232 546 L 204 664" stroke="var(--pl-body)" stroke-width="14"/>
+      <path d="M 190 690 C 180 672 194 660 208 668 C 222 676 218 698 202 700 C 194 702 192 696 190 690 Z" fill="var(--pl-green)" stroke-width="7"/>
     </g>
     <g id="arm-r">
-      <path d="M 356 536 L 386 664" stroke-width="32"/>
-      <path d="M 356 536 L 386 664" stroke="var(--pl-body)" stroke-width="16"/>
+      <path d="M 368 546 L 396 664" stroke-width="30"/>
+      <path d="M 368 546 L 396 664" stroke="var(--pl-body)" stroke-width="14"/>
       <path id="hand-heart" fill="var(--pl-green)" stroke-width="7"
-        d="M 388 698 C 364 682 366 656 386 666 C 406 654 412 680 388 698 Z"/>
+        d="M 398 698 C 374 682 376 656 396 666 C 416 654 422 680 398 698 Z"/>
     </g>
     <rect id="collar" x="250" y="442" width="100" height="30" rx="14" fill="var(--pl-trim)"/>
 

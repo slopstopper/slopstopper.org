@@ -165,8 +165,8 @@
   var line=document.querySelector('.plumb');
   if(!reduce && line){
     var limbs=[
-      {el:document.getElementById('arm-l'), origin:'244px 536px', k:22, c:1.9, g:-9, phi:0, w:0},
-      {el:document.getElementById('arm-r'), origin:'356px 536px', k:19, c:1.7, g:-9, phi:0, w:0},
+      {el:document.getElementById('arm-l'), origin:'232px 546px', k:22, c:1.9, g:-9, phi:0, w:0},
+      {el:document.getElementById('arm-r'), origin:'368px 546px', k:19, c:1.7, g:-9, phi:0, w:0},
       {el:document.getElementById('leg-l'), origin:'270px 706px', k:30, c:2.3, g:-5.5, phi:0, w:0},
       {el:document.getElementById('leg-r'), origin:'336px 708px', k:27, c:2.1, g:-5.5, phi:0, w:0}
     ].filter(function(l){ return l.el; });
