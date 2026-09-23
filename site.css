@@ -299,3 +299,7 @@ footer{border-top:1px solid var(--hair-strong); padding-block:3rem 3.5rem;
 .pieces .d{font-family:var(--mono); font-size:.72rem; color:var(--muted); letter-spacing:.04em; white-space:nowrap}
 .pieces a{border-bottom:1px solid var(--red)}
 .pieces a:hover{color:var(--red)}
+
+/* current page in the top nav (body[data-page] set per page, template stays identical) */
+body[data-page="plumb-line"] nav.links a[data-nav="plumb-line"]{color:var(--fg)}
+body[data-page="plumb-line"] nav.links a[data-nav="plumb-line"]::after{right:0}
