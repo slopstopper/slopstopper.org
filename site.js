@@ -170,3 +170,8 @@
     fig.addEventListener('click', wave);
   }
 })();
+// ---- feedback page: show the sent panel after Formspree returns to ?sent=1 ----
+(function(){
+  var sent=document.getElementById('sent'); if(!sent) return;
+  if(new URLSearchParams(location.search).get('sent')==='1'){ sent.classList.add('show'); sent.setAttribute('tabindex','-1'); sent.focus(); }
+})();

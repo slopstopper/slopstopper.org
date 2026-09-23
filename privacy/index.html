@@ -4,11 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy — slopstopper</title>
-<meta name="description" content="How slopstopper.org handles visitor data.">
+<meta name="description" content="How slopstopper.org handles visitor data: no cookies or analytics, hosting logs at GitHub Pages and Cloudflare, and a feedback form processed by Formspree.">
 <meta name="color-scheme" content="light dark">
-<meta name="robots" content="noindex">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="../site.css?v=dc273d8b">
+<link rel="stylesheet" href="../site.css?v=a04673ac">
 </head>
 <body data-page="privacy">
 <!-- chrome:header -->
@@ -44,11 +43,50 @@
 </header>
 <!-- /chrome:header -->
 <div class="wrap">
-  <main>
+  <main class="privacy">
   <section class="hero" id="top">
     <p class="eyebrow">Privacy</p>
-    <h1>Privacy notice</h1>
-    <p class="sub"><b>Placeholder.</b> The notice is being written (sub-project 3). Until it is, this page states only what is already true: this site is static, sets no cookies, and makes no runtime calls to third parties.</p>
+    <h1 class="plh1">Privacy notice</h1>
+    <p class="sub">This page says what slopstopper.org does with information about you. It is short because the site does very little.</p>
+    <p class="meta">Last updated: 2026-09-23</p>
+  </section>
+
+  <section id="who">
+    <h2>Who runs this site</h2>
+    <p>slopstopper.org is run by an individual based in the UK, who is the data controller for anything described here. Contact: <a href="mailto:slopstopperskills@gmail.com">slopstopperskills@gmail.com</a>. The controller's name is available on request to anyone exercising a right under data protection law.</p>
+  </section>
+
+  <section id="visiting">
+    <h2>Visiting the site</h2>
+    <p>The site sets no cookies and runs no analytics or tracking. Pages are static files; nothing on them loads from a third party when you view them. If you switch between light and dark, that one preference is stored in your own browser and never sent anywhere.</p>
+  </section>
+
+  <section id="hosting">
+    <h2>Hosting logs</h2>
+    <p>The site is served by GitHub Pages and fronted by Cloudflare. Like any web host, they may log your IP address and request details to deliver the pages and protect against abuse. Those logs are held by them under their own terms; we do not receive, store or analyse them. See <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub's privacy statement</a> and <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">Cloudflare's privacy policy</a>.</p>
+  </section>
+
+  <section id="feedback">
+    <h2>The feedback form</h2>
+    <p>The <a href="../plumb-line/feedback/">private feedback form</a> asks about your use of plumb-line: which parts you used, language, kind of project, approximate size, version tested, what it caught, lint output, friction, bugs, and anything else. Your email address is optional; give it only if you want a follow-up to be possible. Everything you type is sent only when you press the button.</p>
+    <p>Purpose: to improve plumb-line. Lawful basis: our legitimate interest in understanding how the software behaves on real codebases. If you tick the box allowing us to quote you or name you as an early user, that is consent, and you can withdraw it at any time by emailing us.</p>
+    <p>Submissions are processed by <a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noopener">Formspree</a>, which receives the form and delivers it to our mailbox. Formspree is based in the United States, so your submission is transferred there; the safeguards it applies are described in its policy. The mailbox is a Google account.</p>
+  </section>
+
+  <section id="retention">
+    <h2>How long we keep it</h2>
+    <p>Feedback is kept while it is being acted on and deleted from Formspree and the mailbox within 12 months of receipt. Where you have allowed quoting, a quote may remain in project materials after that, without your email address.</p>
+  </section>
+
+  <section id="rights">
+    <h2>Your rights</h2>
+    <p>Under UK data protection law you can ask for a copy of the personal data we hold about you, ask us to correct or delete it, restrict or object to how we use it, and withdraw any consent you gave. Email <a href="mailto:slopstopperskills@gmail.com">slopstopperskills@gmail.com</a> and we will respond within one month.</p>
+    <p>If you are unhappy with how we handle your data, you can complain to the <a href="https://ico.org.uk/" target="_blank" rel="noopener">Information Commissioner's Office</a>, the UK regulator.</p>
+  </section>
+
+  <section id="changes">
+    <h2>Changes to this notice</h2>
+    <p>This notice lives in the site's public repository, so every change is recorded. The date at the top moves when it does.</p>
   </section>
   </main>
 </div>
@@ -88,6 +126,6 @@
   </div>
 </footer>
 <!-- /chrome:footer -->
-<script src="../site.js?v=224ff3ba"></script>
+<script src="../site.js?v=164453f4"></script>
 </body>
 </html>

@@ -301,8 +301,8 @@ footer{border-top:1px solid var(--hair-strong); padding-block:3rem 3.5rem;
 .pieces a:hover{color:var(--red)}
 
 /* current page in the top nav (body[data-page] set per page, template stays identical) */
-body[data-page="plumb-line"] nav.links a[data-nav="plumb-line"]{color:var(--fg)}
-body[data-page="plumb-line"] nav.links a[data-nav="plumb-line"]::after{right:0}
+body[data-page^="plumb-line"] nav.links a[data-nav="plumb-line"]{color:var(--fg)}
+body[data-page^="plumb-line"] nav.links a[data-nav="plumb-line"]::after{right:0}
 
 /* ---------- plumb-line page ---------- */
 .plhero{display:grid; grid-template-columns:minmax(140px,200px) 1fr; gap:clamp(1.5rem,4vw,3.5rem); align-items:center}
@@ -358,3 +358,27 @@ body.pl-hanging #plumb{animation:none}                 /* no weight-shift on a p
   #plumb.detect #rays{animation:none; opacity:0}
   #plumb.wave #arm-r{animation:none}
 }
+
+/* ---------- forms (feedback page) ---------- */
+.form{max-width:44rem}
+.form label{display:block; font-family:var(--mono); font-size:.78rem; letter-spacing:.06em; text-transform:uppercase; color:var(--fg); margin:1.6rem 0 .45rem}
+.form label .hint{display:block; font-family:inherit; text-transform:none; letter-spacing:0; font-size:.76rem; color:var(--muted); margin-top:.25rem}
+.form input[type=text],.form input[type=email],.form select,.form textarea{width:100%; font:inherit; font-size:.95rem; color:var(--fg);
+  background:var(--faint); border:1px solid var(--hair-strong); border-radius:3px; padding:.7rem .8rem}
+.form textarea{min-height:7.5rem; resize:vertical}
+.form textarea.code{font-family:var(--mono); font-size:.84rem}
+.form input:focus,.form select:focus,.form textarea:focus{outline:2px solid var(--red); outline-offset:2px; border-color:var(--red)}
+.form .checks{display:grid; gap:.5rem}
+.form .checks label{display:flex; align-items:flex-start; gap:.6rem; text-transform:none; letter-spacing:0; font-family:inherit; font-size:.95rem; margin:0}
+.form .checks input{margin-top:.25rem; accent-color:var(--red)}
+.form .hp{position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden}
+.form .notice{font-size:.9rem; color:var(--muted); margin:2rem 0 1rem}
+.form .notice a{color:var(--fg); border-bottom:1px solid var(--red)}
+.sent{display:none; border:1px solid var(--red); border-radius:3px; padding:1.1rem 1.2rem; margin:0 0 2rem; background:var(--red-soft)}
+.sent.show{display:block}
+/* legal text reads as one document: tight sections, no chapter padding, no scroll-reveal */
+.privacy section{padding-block:1.6rem} .privacy section + section{border-top:0}
+.privacy .hero{padding-bottom:1rem}
+.privacy h2{font-size:clamp(1.25rem,2vw,1.6rem); margin:0 0 .8rem} .privacy p,.privacy li{max-width:64ch}
+.privacy .meta{font-family:var(--mono); font-size:.78rem; color:var(--muted)}
+.privacy .reveal{opacity:1; transform:none; transition:none}

@@ -6,6 +6,7 @@ export const PAGES = [
   { file: "index.html", page: "home", depth: 0 },
   { file: "plumb-line/index.html", page: "plumb-line", depth: 1 },
   { file: "privacy/index.html", page: "privacy", depth: 1 },
+  { file: "plumb-line/feedback/index.html", page: "plumb-line-feedback", depth: 2 },
 ];
 
 /** Relative prefix that reaches the site root from a page at `depth`. */

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Private feedback — plumb-line — slopstopper</title>
+<meta name="description" content="Send plumb-line feedback privately, for testing on codebases you cannot describe in a public issue.">
+<meta name="color-scheme" content="light dark">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../site.css?v=a04673ac">
+</head>
+<body data-page="plumb-line-feedback">
+<!-- chrome:header -->
+<header class="topbar">
+  <div class="row">
+    <a class="brand" href="../../" aria-label="slopstopper — home">
+      <!-- themed inline wordmark -->
+      <svg viewBox="72 254 723.7 170" role="img" aria-label="slopstopper">
+        <g transform="translate(90,160)">
+          <text class="wm-letter" x="0" y="220" font-size="120" font-family="Arial,Helvetica,sans-serif" font-weight="800" letter-spacing="-3">s</text>
+          <g transform="translate(58.384,144.716) scale(0.76814)">
+            <rect class="wm-bar" x="14" y="40" width="72" height="11" rx="5.5"/>
+            <rect class="wm-bar" x="14" y="63" width="72" height="11" rx="5.5"/>
+            <rect class="wm-plumb" x="42" y="-2" width="16" height="116" rx="8" transform="rotate(24 50 57)"/>
+          </g>
+          <text class="wm-letter" x="126.8" y="220" font-size="120" font-family="Arial,Helvetica,sans-serif" font-weight="800" letter-spacing="-3">opstopper</text>
+        </g>
+      </svg>
+      <span class="tag">coherent&nbsp;≠&nbsp;correct</span>
+    </a>
+    <nav class="links" aria-label="Primary">
+      <a href="../../#risks" class="hideable">What&nbsp;goes&nbsp;wrong</a>
+      <a href="../../#tools">The&nbsp;tools</a>
+      <a href="../../plumb-line/" data-nav="plumb-line">plumb-line</a>
+      <a href="../../#install">Install</a>
+      <a href="https://github.com/slopstopper" class="hideable" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+    <button class="ttog" id="ttog" aria-label="Toggle light or dark theme">
+      <svg id="tico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></svg>
+      <span id="tlbl">Dark</span>
+    </button>
+  </div>
+</header>
+<!-- /chrome:header -->
+<div class="wrap">
+  <main>
+  <section class="hero" id="top">
+    <p class="eyebrow">01 / plumb-line · private feedback</p>
+    <h1 class="plh1">Feedback you can't post in a public issue.</h1>
+    <p class="sub">For testing on a private or internal codebase. Raw output and one concrete example beat polished prose: paste logs, don't summarise. Prefer a public record? <a href="https://github.com/slopstopper/plumb-line/issues/new?template=feedback.yml" target="_blank" rel="noopener">Open a feedback issue</a> instead.</p>
+  </section>
+  <section id="form">
+    <div id="sent" class="sent" role="status"><b>Sent. Thank you.</b> If you left an email, a reply may follow; there is no automatic acknowledgement.</div>
+    <form class="form" action="https://formspree.io/f/mwvdqwpe" method="POST">
+      <input type="hidden" name="_subject" value="plumb-line private feedback">
+      <input type="hidden" name="_next" value="https://slopstopper.org/plumb-line/feedback/?sent=1">
+      <label class="hp" aria-hidden="true">Leave this empty <input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label>
+
+      <label for="email">Your email <span class="hint">optional, so a follow-up is possible</span></label>
+      <input type="email" id="email" name="email" autocomplete="email">
+
+      <label>Which parts did you use?</label>
+      <div class="checks">
+        <label><input type="checkbox" name="parts" value="provenance library"> Provenance library (mark / derive / auditMeta)</label>
+        <label><input type="checkbox" name="parts" value="lint"> no-provenance-bypass lint</label>
+        <label><input type="checkbox" name="parts" value="audit skill"> audit skill</label>
+        <label><input type="checkbox" name="parts" value="boundary adapter"> boundary adapter</label>
+        <label><input type="checkbox" name="parts" value="github action"> GitHub Action</label>
+      </div>
+
+      <label for="language">Language</label>
+      <select id="language" name="language"><option>JavaScript / TypeScript</option><option>Python</option><option>Both</option></select>
+
+      <label for="domain">Domain <span class="hint">roughly what kind of project; pick "Other" to type your own</span></label>
+      <select id="domain" name="domain">
+        <option value="" disabled selected>Select one…</option>
+        <option>Web app / API backend</option><option>Data / ML pipeline</option><option>Data engineering / ETL</option>
+        <option>CLI tool / developer tooling</option><option>Library / SDK</option><option>Scientific / research computing</option>
+        <option>Finance / analytics</option><option>Infrastructure / DevOps</option><option value="Other">Other</option>
+      </select>
+      <label for="domain_other">Domain, other <span class="hint">if you picked "Other", or nothing fits</span></label>
+      <input type="text" id="domain_other" name="domain_other">
+
+      <label for="loc">Approximate lines of code <span class="hint">order of magnitude, e.g. "~20k"</span></label>
+      <input type="text" id="loc" name="loc">
+
+      <label for="version">Version tested <span class="hint">package version, or git tag / SHA</span></label>
+      <input type="text" id="version" name="version">
+
+      <label for="caught">What did it catch? <span class="hint">a value that was un-provenanced, mock-leaked, or confidently wrong that plumb-line surfaced: before → after</span></label>
+      <textarea id="caught" name="what_it_caught"></textarea>
+
+      <label for="lint">Lint output: false positives or missed cases <span class="hint">paste the output; for each flag, correct or noise? did it miss a bypass you know of?</span></label>
+      <textarea id="lint" name="lint_output" class="code"></textarea>
+
+      <label for="friction">Friction <span class="hint">where did you get stuck: install, imports, wiring the lint, the API? docs wrong or confusing?</span></label>
+      <textarea id="friction" name="friction"></textarea>
+
+      <label for="bugs">Bugs / errors <span class="hint">stack traces or surprising behaviour, with a minimal repro</span></label>
+      <textarea id="bugs" name="bugs" class="code"></textarea>
+
+      <label for="anything_else">Anything else?</label>
+      <textarea id="anything_else" name="anything_else"></textarea>
+
+      <div class="checks" style="margin-top:1.4rem">
+        <label><input type="checkbox" name="may_quote" value="yes"> You may quote this feedback and name me as an early user.</label>
+      </div>
+
+      <p class="notice">Sending posts this form to Formspree, which processes it in the United States and delivers it to the slopstopper mailbox. Nothing is sent until you press the button. Details, retention and your rights: <a href="../../privacy/">privacy notice</a>.</p>
+      <button type="submit" class="btn pri">Send feedback <span class="arr">→</span></button>
+    </form>
+  </section>
+  </main>
+</div>
+<!-- chrome:footer -->
+<footer>
+  <div class="fcols">
+    <div class="about">
+      <svg viewBox="72 254 723.7 170" role="img" aria-label="slopstopper">
+        <g transform="translate(90,160)">
+          <text class="wm-letter" x="0" y="220" font-size="120" font-family="Arial,Helvetica,sans-serif" font-weight="800" letter-spacing="-3">s</text>
+          <g transform="translate(58.384,144.716) scale(0.76814)">
+            <rect class="wm-bar" x="14" y="40" width="72" height="11" rx="5.5"/>
+            <rect class="wm-bar" x="14" y="63" width="72" height="11" rx="5.5"/>
+            <rect class="wm-plumb" x="42" y="-2" width="16" height="116" rx="8" transform="rotate(24 50 57)"/>
+          </g>
+          <text class="wm-letter" x="126.8" y="220" font-size="120" font-family="Arial,Helvetica,sans-serif" font-weight="800" letter-spacing="-3">opstopper</text>
+        </g>
+      </svg>
+      Tools that catch slop in code. Each stands alone; any combination works as one system. Extracted from live practice, applied to themselves, honest about what they don't yet do.
+    </div>
+    <div class="fgroup">
+      <h5>Tools</h5>
+      <a href="../../plumb-line/">plumb-line</a>
+      <a href="https://github.com/slopstopper/tokenomics" target="_blank" rel="noopener">tokenomics ↗</a>
+      <a href="https://github.com/slopstopper/recursive-spine" target="_blank" rel="noopener">recursive-spine ↗</a>
+    </div>
+    <div class="fgroup">
+      <h5>Org</h5>
+      <a href="https://github.com/slopstopper" target="_blank" rel="noopener">GitHub org ↗</a>
+      <a href="https://github.com/slopstopper/marketplace" target="_blank" rel="noopener">Marketplace ↗</a>
+      <a href="../../privacy/">Privacy</a>
+    </div>
+  </div>
+  <div class="colophon">
+    <span>© slopstopper — tools against synthetic coherence.</span>
+    <span>Set in Bricolage Grotesque &amp; IBM Plex Mono · self-hosted, no trackers, no runtime external calls.</span>
+  </div>
+</footer>
+<!-- /chrome:footer -->
+<script src="../../site.js?v=164453f4"></script>
+</body>
+</html>
