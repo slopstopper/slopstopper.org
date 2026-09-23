@@ -18,15 +18,15 @@
 
     <!-- limbs first: their roots sit inside the body silhouette -->
     <g id="arm-l">
-      <path d="M 256 526 C 210 552 186 608 194 664" stroke-width="32"/>
-      <path d="M 256 526 C 210 552 186 608 194 664" stroke="var(--pl-body)" stroke-width="16"/>
-      <path d="M 180 686 C 170 668 184 656 198 664 C 212 672 208 694 192 696 C 184 698 182 692 180 686 Z" fill="var(--pl-green)" stroke-width="7"/>
+      <path d="M 254 530 L 212 662" stroke-width="32"/>
+      <path d="M 254 530 L 212 662" stroke="var(--pl-body)" stroke-width="16"/>
+      <path d="M 198 686 C 188 668 202 656 216 664 C 230 672 226 694 210 696 C 202 698 200 692 198 686 Z" fill="var(--pl-green)" stroke-width="7"/>
     </g>
     <g id="arm-r">
-      <path d="M 344 526 C 390 552 414 608 406 664" stroke-width="32"/>
-      <path d="M 344 526 C 390 552 414 608 406 664" stroke="var(--pl-body)" stroke-width="16"/>
+      <path d="M 346 530 L 388 662" stroke-width="32"/>
+      <path d="M 346 530 L 388 662" stroke="var(--pl-body)" stroke-width="16"/>
       <path id="hand-heart" fill="var(--pl-green)" stroke-width="7"
-        d="M 410 694 C 386 678 388 652 408 662 C 428 650 434 676 410 694 Z"/>
+        d="M 392 694 C 368 678 370 652 390 662 C 410 650 416 676 392 694 Z"/>
     </g>
     <g id="legs">
       <g id="leg-l">
