@@ -63,13 +63,16 @@
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var canSwing=!reduce && matchMedia('(pointer:fine)').matches && window.innerWidth>=760;
   var theta=0, omega=0, raf=null, markX=0, L=600, MAXT=0.16;
-  var K=16, C=1.9, KICK=0.62, OMAX=1.2;          // spring, damping, click impulse, velocity cap
+  var K=16, C=1.4, KICK=0.62, OMAX=1.6;          // spring, damping, click impulse, velocity cap
+  if(plumb.classList.contains('plumb--character')){ KICK=1.0; }   // Plumb is heavier than the bob: a poke sends it further
 
   function place(){
     markX=mark.getBoundingClientRect().left; plumb.style.left=markX+'px';
-    L=plumb.offsetHeight||600; MAXT=Math.min(0.17, (parseFloat(plumb.dataset.maxSwing)||120)/L);   // cap swing so the bob stays in the gutter
+    L=plumb.offsetHeight||600;
+    var hardCap = plumb.classList.contains('plumb--character') ? 0.24 : 0.17;   // Plumb may swing wider than the bob; it decays rather than hitting a wall
+    MAXT=Math.min(hardCap, (parseFloat(plumb.dataset.maxSwing)||120)/L);   // and never past the gutter
   }
-  function apply(){ plumb.style.transform='rotate('+theta.toFixed(4)+'rad)'; }
+  function apply(){ plumb.style.transform='rotate('+theta.toFixed(4)+'rad)'; plumb._theta=theta; }
   function step(){
     var dt=1/60, a=-K*Math.sin(theta)-C*omega;
     omega+=a*dt; theta+=omega*dt;
@@ -79,26 +82,24 @@
     if(Math.abs(theta)<0.001 && Math.abs(omega)<0.003){ theta=0; omega=0; apply(); raf=null; return; }
     raf=requestAnimationFrame(step);
   }
-  function physics(){ if(raf) cancelAnimationFrame(raf); raf=requestAnimationFrame(step); }
+  function physics(){ if(raf) cancelAnimationFrame(raf); raf=requestAnimationFrame(step); plumb.dispatchEvent(new Event('plumb-move')); }
+  function kick(clientX){
+    var dir;
+    if(Math.abs(omega)<0.06 && Math.abs(theta)<0.03){ dir = (clientX - markX) < -1 ? -1 : 1; }   // first push: away from the click side
+    else { dir = omega>=0 ? 1 : -1; }                                                          // already swinging: add energy
+    omega += dir*KICK;
+    if(omega>OMAX) omega=OMAX; else if(omega<-OMAX) omega=-OMAX;
+    plumb.classList.add('poked'); setTimeout(function(){ plumb.classList.remove('poked'); }, 150);
+    physics();
+  }
+  if(!reduce) plumb._kick=kick;   // the character (site.js below) pokes the line from a tap on the figure, on any device
 
   place();
   window.addEventListener('resize', place);
 
   if(canSwing){
     plumb.classList.add('swingable');
-    grab.addEventListener('pointerdown', function(e){
-      e.preventDefault();
-      var dir;
-      if(Math.abs(omega)<0.06 && Math.abs(theta)<0.03){
-        dir = (e.clientX - markX) < -1 ? -1 : 1;   // first push: shove the bob away from the click side
-      } else {
-        dir = omega>=0 ? 1 : -1;                   // already swinging: add energy in the same direction
-      }
-      omega += dir*KICK;
-      if(omega>OMAX) omega=OMAX; else if(omega<-OMAX) omega=-OMAX;
-      plumb.classList.add('poked'); setTimeout(function(){ plumb.classList.remove('poked'); }, 150);
-      physics();
-    });
+    grab.addEventListener('pointerdown', function(e){ e.preventDefault(); kick(e.clientX); });
   } else {
     grab.style.pointerEvents='none';               // no click strip on touch / coarse pointers
   }
@@ -124,7 +125,7 @@
   }
 })();
 // ---- Plumb (plumb-line page): grounded idle is CSS; this adds the once-only
-//      detection flash when the law block scrolls in, and a wave on hover/tap ----
+//      detection flash while the law block is in view, and limbs that swing with the line ----
 (function(){
   var fig=document.getElementById('plumb'); if(!fig) return;
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -133,6 +134,7 @@
   if(hang){
     hang.appendChild(fig);
     document.body.classList.add('pl-hanging');
+    hang.parentNode.dataset.maxSwing = window.innerWidth<760 ? '52' : '110';   // wider swing where the gutter allows it
     window.dispatchEvent(new Event('resize'));   // let the swing code re-measure its length
     // right of way: fade any gutter section number the hanging figure passes over
     var snums=[].slice.call(document.querySelectorAll('.snum')), ticking=false;
@@ -148,26 +150,45 @@
     window.addEventListener('resize', yieldPass);
     yieldPass();
   }
-  var law=document.getElementById('law'), fired=false;
-  function flash(){
-    if(fired) return; fired=true;
-    fig.classList.add('detect');
-    setTimeout(function(){ fig.classList.remove('detect'); }, reduce ? 900 : 1200);
-  }
+  // detection: the bob holds amber for as long as the law block (the taint example) is in view
+  var law=document.getElementById('law');
   if(law){
     if('IntersectionObserver' in window){
       var io=new IntersectionObserver(function(es){
-        es.forEach(function(en){ if(en.intersectionRatio>=0.4){ flash(); io.disconnect(); } });
-      }, {threshold:[0.4]});
+        es.forEach(function(en){ fig.classList.toggle('detect', en.isIntersecting && en.intersectionRatio>=0.25); });
+      }, {threshold:[0, 0.25, 0.5]});
       io.observe(law);
-    } else { flash(); }
+    } else { fig.classList.add('detect'); }
   }
-  if(!reduce){
-    var waving=false;
-    function wave(){ if(waving) return; waving=true; fig.classList.add('wave');
-      setTimeout(function(){ fig.classList.remove('wave'); waving=false; }, 800); }
-    fig.addEventListener('pointerenter', wave);
-    fig.addEventListener('click', wave);
+  // limbs: each arm and leg is its own small pendulum, driven by the body's swing and
+  // settling at its own rate, so a poke makes Plumb flail and then hang still again
+  var line=document.querySelector('.plumb');
+  if(!reduce && line){
+    var limbs=[
+      {el:document.getElementById('arm-l'), origin:'232px 546px', k:22, c:1.9, g:-9, phi:0, w:0},
+      {el:document.getElementById('arm-r'), origin:'368px 546px', k:19, c:1.7, g:-9, phi:0, w:0},
+      {el:document.getElementById('leg-l'), origin:'270px 706px', k:30, c:2.3, g:-5.5, phi:0, w:0},
+      {el:document.getElementById('leg-r'), origin:'336px 708px', k:27, c:2.1, g:-5.5, phi:0, w:0}
+    ].filter(function(l){ return l.el; });
+    limbs.forEach(function(l){ l.el.style.transformOrigin=l.origin; });
+    var lraf=null, lastTheta=0;
+    function limbStep(){
+      var dt=1/60, theta=line._theta||0, moving=false;
+      var accel=(theta-lastTheta)/dt; lastTheta=theta;          // body angular velocity: the drive
+      limbs.forEach(function(l){
+        var a=-l.k*l.phi - l.c*l.w + l.g*accel;                // spring back to hanging, damped, driven by the body
+        l.w+=a*dt; l.phi+=l.w*dt;
+        if(l.phi>0.7) l.phi=0.7; else if(l.phi<-0.7) l.phi=-0.7;   // ~40°: flail, not windmill
+        l.el.style.transform='rotate('+l.phi.toFixed(4)+'rad)';
+        if(Math.abs(l.phi)>0.002||Math.abs(l.w)>0.01) moving=true;
+      });
+      if(moving||Math.abs(theta)>0.001){ lraf=requestAnimationFrame(limbStep); } else { lraf=null; }
+    }
+    function limbsGo(){ if(!lraf) lraf=requestAnimationFrame(limbStep); }
+    line.addEventListener('plumb-move', limbsGo);
+    limbsGo();
+    // a tap on Plumb himself pokes the line, on any device (the grab strip is desktop-only)
+    fig.addEventListener('pointerdown', function(e){ if(line._kick) line._kick(e.clientX); });
   }
 })();
 // ---- feedback page: show the sent panel after Formspree returns to ?sent=1 ----
