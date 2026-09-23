@@ -324,7 +324,7 @@ body.pl-hanging .plfig{display:none}
 body.pl-hanging .plhero{grid-template-columns:1fr}
 .plumb--character .string{bottom:93px}
 .plumb--character .hang{position:absolute; bottom:0; left:-36px; width:72px; height:108px}
-.plumb--character .hang svg{width:72px; height:108px; display:block; overflow:visible;
+.plumb--character .hang svg{width:72px; height:108px; display:block; overflow:visible; pointer-events:auto; cursor:pointer;
   filter:drop-shadow(0 3px 7px color-mix(in srgb, var(--ink) 25%, transparent))}
 .plumb--character .grab{left:-40px; width:80px}
 @media(max-width:760px){
@@ -345,7 +345,7 @@ body.pl-hanging #plumb{animation:none}                 /* no weight-shift on a p
 #plumb #eye-r{animation-delay:.05s}
 #plumb #bob{transition:fill .08s}
 #plumb.detect #bob{fill:var(--pl-amber)}
-#plumb.detect #rays{transform-box:fill-box; transform-origin:center; animation:pl-rays 1.2s ease-out forwards}
+#plumb.detect #rays{transform-box:fill-box; transform-origin:center; animation:pl-rays 1.4s ease-out forwards}
 #plumb #arm-r{transform-box:view-box; transform-origin:344px 520px}
 #plumb.wave #arm-r{animation:pl-wave .8s ease-in-out}
 @keyframes pl-breathe{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.015)}}
@@ -376,9 +376,11 @@ body.pl-hanging #plumb{animation:none}                 /* no weight-shift on a p
 .form .notice a{color:var(--fg); border-bottom:1px solid var(--red)}
 .sent{display:none; border:1px solid var(--red); border-radius:3px; padding:1.1rem 1.2rem; margin:0 0 2rem; background:var(--red-soft)}
 .sent.show{display:block}
-/* legal text reads as one document: tight sections, no chapter padding, no scroll-reveal */
-.privacy section{padding-block:1.6rem} .privacy section + section{border-top:0}
-.privacy .hero{padding-bottom:1rem}
-.privacy h2{font-size:clamp(1.25rem,2vw,1.6rem); margin:0 0 .8rem} .privacy p,.privacy li{max-width:64ch}
+/* privacy: the home page's tool-row layout, compact; no scroll-reveal on legal text */
+.privacy .hero{padding-top:clamp(2.5rem,5vw,4rem); padding-bottom:clamp(1.5rem,3vw,2.5rem)}
+.privacy #notice{padding-top:0}
+.privacy .tool{padding:1.6rem 0} .privacy .tool::before{top:1.6rem; bottom:1.6rem}
+.privacy .tool h3{font-size:clamp(1.05rem,1.6vw,1.3rem); margin:0}
+.privacy .tool .desc{margin:0 0 .9rem} .privacy .tool .desc:last-child{margin-bottom:0}
 .privacy .meta{font-family:var(--mono); font-size:.78rem; color:var(--muted)}
 .privacy .reveal{opacity:1; transform:none; transition:none}

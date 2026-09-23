@@ -63,11 +63,14 @@
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var canSwing=!reduce && matchMedia('(pointer:fine)').matches && window.innerWidth>=760;
   var theta=0, omega=0, raf=null, markX=0, L=600, MAXT=0.16;
-  var K=16, C=1.9, KICK=0.62, OMAX=1.2;          // spring, damping, click impulse, velocity cap
+  var K=16, C=1.4, KICK=0.62, OMAX=1.6;          // spring, damping, click impulse, velocity cap
+  if(plumb.classList.contains('plumb--character')){ KICK=1.0; }   // Plumb is heavier than the bob: a poke sends it further
 
   function place(){
     markX=mark.getBoundingClientRect().left; plumb.style.left=markX+'px';
-    L=plumb.offsetHeight||600; MAXT=Math.min(0.17, (parseFloat(plumb.dataset.maxSwing)||120)/L);   // cap swing so the bob stays in the gutter
+    L=plumb.offsetHeight||600;
+    var hardCap = plumb.classList.contains('plumb--character') ? 0.24 : 0.17;   // Plumb may swing wider than the bob; it decays rather than hitting a wall
+    MAXT=Math.min(hardCap, (parseFloat(plumb.dataset.maxSwing)||120)/L);   // and never past the gutter
   }
   function apply(){ plumb.style.transform='rotate('+theta.toFixed(4)+'rad)'; }
   function step(){
@@ -133,6 +136,7 @@
   if(hang){
     hang.appendChild(fig);
     document.body.classList.add('pl-hanging');
+    hang.parentNode.dataset.maxSwing = window.innerWidth<760 ? '52' : '110';   // wider swing where the gutter allows it
     window.dispatchEvent(new Event('resize'));   // let the swing code re-measure its length
     // right of way: fade any gutter section number the hanging figure passes over
     var snums=[].slice.call(document.querySelectorAll('.snum')), ticking=false;
@@ -148,26 +152,29 @@
     window.addEventListener('resize', yieldPass);
     yieldPass();
   }
-  var law=document.getElementById('law'), fired=false;
-  function flash(){
-    if(fired) return; fired=true;
-    fig.classList.add('detect');
-    setTimeout(function(){ fig.classList.remove('detect'); }, reduce ? 900 : 1200);
-  }
+  // detection: the bob holds amber for as long as the law block (the taint example) is in view
+  var law=document.getElementById('law');
   if(law){
     if('IntersectionObserver' in window){
       var io=new IntersectionObserver(function(es){
-        es.forEach(function(en){ if(en.intersectionRatio>=0.4){ flash(); io.disconnect(); } });
-      }, {threshold:[0.4]});
+        es.forEach(function(en){ fig.classList.toggle('detect', en.isIntersecting && en.intersectionRatio>=0.25); });
+      }, {threshold:[0, 0.25, 0.5]});
       io.observe(law);
-    } else { flash(); }
+    } else { fig.classList.add('detect'); }
   }
+  // wave on hover / tap of the figure; when hanging, a tap also nudges the line
   if(!reduce){
-    var waving=false;
+    var waving=false, grab=document.querySelector('.plumb .grab');
     function wave(){ if(waving) return; waving=true; fig.classList.add('wave');
       setTimeout(function(){ fig.classList.remove('wave'); waving=false; }, 800); }
     fig.addEventListener('pointerenter', wave);
-    fig.addEventListener('click', wave);
+    fig.addEventListener('pointerover', wave);
+    fig.addEventListener('pointerdown', function(e){
+      wave();
+      if(grab && document.body.classList.contains('pl-hanging')){
+        grab.dispatchEvent(new PointerEvent('pointerdown', {clientX:e.clientX, clientY:e.clientY, bubbles:false}));
+      }
+    });
   }
 })();
 // ---- feedback page: show the sent panel after Formspree returns to ?sent=1 ----
