@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
   <rect width="512" height="512" rx="112" fill="#17171a"/>
-  <g transform="translate(106.00,56.31) scale(1.1219)"><g id="art"><text x="0" y="220" font-size="120" font-family="Arial, Helvetica, 'DejaVu Sans', sans-serif" font-weight="800" letter-spacing="-3" fill="#f5f4f2">s</text><g class="g" transform="translate(58.38427931482531,144.21584926393157) scale(0.7681429953696214)">
-  <rect x="14" y="40" width="72" height="11" rx="5.5" fill="#f5f4f2"/>
-  <rect x="14" y="63" width="72" height="11" rx="5.5" fill="#f5f4f2"/>
-  <rect x="42" y="-2" width="16" height="116" rx="8" transform="rotate(24 50 57)" fill="#d1553f"/></g><text x="126.8" y="220" font-size="120" font-family="Arial, Helvetica, 'DejaVu Sans', sans-serif" font-weight="800" letter-spacing="-3" fill="#f5f4f2">op</text></g></g>
+  <g transform="translate(106.00,56.31) scale(1.1219)"><g id="art"><text x="0" y="220" font-size="120" font-family="Arial, Helvetica, 'DejaVu Sans', sans-serif" font-weight="800" letter-spacing="-3" fill="#f5f4f2">s</text><g class="g" transform="translate(58.38427931482531,144.71584926393157) scale(0.7681429953696214)">
+  <rect x="14" y="37.5" width="72" height="16" rx="8" fill="#d1553f"/>
+  <rect x="14" y="60.5" width="72" height="16" rx="8" fill="#d1553f"/>
+  <rect x="39.5" y="-2" width="21" height="116" rx="10.5" transform="rotate(24 50 57)" fill="#f5f4f2"/></g><text x="126.8" y="220" font-size="120" font-family="Arial, Helvetica, 'DejaVu Sans', sans-serif" font-weight="800" letter-spacing="-3" fill="#f5f4f2">op</text></g></g>
 </svg>
