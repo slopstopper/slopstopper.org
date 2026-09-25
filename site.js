@@ -62,22 +62,24 @@
   if(!plumb||!mark||!grab) return;
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var canSwing=!reduce && matchMedia('(pointer:fine)').matches && window.innerWidth>=760;
-  var theta=0, omega=0, raf=null, markX=0, L=600, MAXT=0.16;
-  var K=16, C=1.4, KICK=0.62, OMAX=1.6;          // spring, damping, click impulse, velocity cap
-  if(plumb.classList.contains('plumb--character')){ KICK=1.0; }   // Plumb is heavier than the bob: a poke sends it further
+  var theta=0, omega=0, raf=null, markX=0, L=600;
+  // Free swing (owner, 2026-09-25): no gutter cap, no small wall. Each tap adds energy in the
+  // direction of travel, so you can pump it higher; light damping lets that accumulate. The only
+  // stop is THETA_MAX, just short of horizontal, where a real string would go slack.
+  var K=16, C=0.5, KICK=0.7, PUMP=0.35, THETA_MAX=1.45;   // spring, damping, tap impulse, pump gain, angle stop (~83°)
+  var OMAX=5.5;                                  // velocity cap: √(2K(1−cos θmax)) ≈ 5.31, so the stop is reachable
+  if(plumb.classList.contains('plumb--character')){ KICK=0.95; }  // Plumb is heavier than the bob: a poke sends it further
 
   function place(){
     markX=mark.getBoundingClientRect().left; plumb.style.left=markX+'px';
     L=plumb.offsetHeight||600;
-    var hardCap = plumb.classList.contains('plumb--character') ? 0.24 : 0.17;   // Plumb may swing wider than the bob; it decays rather than hitting a wall
-    MAXT=Math.min(hardCap, (parseFloat(plumb.dataset.maxSwing)||120)/L);   // and never past the gutter
   }
   function apply(){ plumb.style.transform='rotate('+theta.toFixed(4)+'rad)'; plumb._theta=theta; }
   function step(){
     var dt=1/60, a=-K*Math.sin(theta)-C*omega;
     omega+=a*dt; theta+=omega*dt;
-    if(theta>MAXT){ theta=MAXT; if(omega>0) omega=0; }
-    else if(theta<-MAXT){ theta=-MAXT; if(omega<0) omega=0; }
+    if(theta>THETA_MAX){ theta=THETA_MAX; if(omega>0) omega=0; }       // string goes slack past here: stop and fall back
+    else if(theta<-THETA_MAX){ theta=-THETA_MAX; if(omega<0) omega=0; }
     apply();
     if(Math.abs(theta)<0.001 && Math.abs(omega)<0.003){ theta=0; omega=0; apply(); raf=null; return; }
     raf=requestAnimationFrame(step);
@@ -87,7 +89,7 @@
     var dir;
     if(Math.abs(omega)<0.06 && Math.abs(theta)<0.03){ dir = (clientX - markX) < -1 ? -1 : 1; }   // first push: away from the click side
     else { dir = omega>=0 ? 1 : -1; }                                                          // already swinging: add energy
-    omega += dir*KICK;
+    omega += dir*(KICK + PUMP*Math.abs(omega));   // like pumping a swing: a tap at speed adds more, so rhythm gets you to the top
     if(omega>OMAX) omega=OMAX; else if(omega<-OMAX) omega=-OMAX;
     plumb.classList.add('poked'); setTimeout(function(){ plumb.classList.remove('poked'); }, 150);
     physics();
@@ -137,7 +139,6 @@
   if(hang){
     hang.appendChild(fig);
     document.body.classList.add('pl-hanging');
-    hang.parentNode.dataset.maxSwing = window.innerWidth<760 ? '52' : '110';   // wider swing where the gutter allows it
     window.dispatchEvent(new Event('resize'));   // let the swing code re-measure its length
   }
   // detection: the bob holds amber for as long as the law block (the taint example) is in view
