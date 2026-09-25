@@ -28,3 +28,19 @@ for (const sel of [".lead", ".hero .sub"]) {
 test("privacy rows keep the hover offset that clears the highlight bar", () => {
   assert.doesNotMatch(rule(".privacy .tool") ?? "", /(^|;)\s*padding:/);
 });
+
+// The root scale must keep moving on large screens. With `.5vw + .92rem`
+// capped at 1.12rem it stopped growing at 640px while the display headings
+// (6.2vw, capped near 1200px) kept going, so a 2000px tablet got maxed-out
+// headings over 640px-sized body copy.
+test("root scale keeps growing past tablet widths", () => {
+  const fs = (rule("html") ?? "").match(/font-size:clamp\(([^)]*)\)/)?.[1] ?? "";
+  const [min, mid, max] = fs.split(",").map((s) => s.trim());
+  const base = parseFloat(mid.match(/([\d.]+)rem/)?.[1] ?? "0");
+  const slope = parseFloat(mid.match(/([\d.]+)vw/)?.[1] ?? "0");
+  const cap = parseFloat(max);
+  assert.ok(slope > 0 && base > 0, `middle term needs rem + vw: ${fs}`);
+  const capReachedAt = ((cap - base) * 16) / (slope / 100);
+  assert.ok(capReachedAt >= 1200, `scale stops at ${Math.round(capReachedAt)}px; want ≥1200 (${fs})`);
+  assert.ok(parseFloat(min) >= 1, `floor below 1rem: ${fs}`);
+});

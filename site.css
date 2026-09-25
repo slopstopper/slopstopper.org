@@ -38,7 +38,7 @@ html[data-theme="dark"]{
 html{-webkit-text-size-adjust:100%;
   /* the one fluid scale: rem everywhere below follows it, so labels, descs and
      asides grow with body copy instead of sitting at a fixed 16px root */
-  font-size:clamp(1rem,0.5vw + 0.92rem,1.12rem)}
+  font-size:clamp(1rem,.88rem + .4vw,1.22rem)}   /* 16px at 360, ~18 at 1000, 19.5 from 1360 up */
 body{
   margin:0; background:var(--bg); color:var(--fg);
   font-family:var(--disp); font-weight:400;
@@ -130,7 +130,7 @@ section + section{border-top:1px solid var(--hair)}
 .eyebrow{font-family:var(--mono); font-size:.74rem; letter-spacing:.2em;
   text-transform:uppercase; color:var(--red); margin:0 0 1.4rem}
 h2{font-family:var(--disp); font-weight:700; letter-spacing:-0.03em; line-height:.98;
-  font-size:clamp(2.15rem,6.2vw,4.6rem); margin:0 0 1.6rem; max-width:15ch}
+  font-size:clamp(2.15rem,6.2vw,3.8rem); margin:0 0 1.6rem; max-width:15ch}   /* cap in rem follows the root: ~74px at the top of the scale */
 .lead{font-size:clamp(1.12rem,.95rem + .6vw,1.35rem); line-height:1.55; max-width:46ch; color:var(--fg)}
 p{margin:0 0 1.1rem}
 .muted{color:var(--muted)}
