@@ -2,6 +2,12 @@
   "source": "slopstopper/plumb-line:docs/content",
   "pieces": [
     {
+      "date": "2026-09-25",
+      "slug": "plumb-line-0.11.2-the-checkers-own-blind-spot",
+      "title": "plumb-line 0.11.2 — the checker's own blind spot",
+      "url": "https://github.com/slopstopper/plumb-line/blob/main/docs/content/2026-09-25-plumb-line-0.11.2-the-checkers-own-blind-spot.md"
+    },
+    {
       "date": "2026-09-20",
       "slug": "plumb-line-0.11.1-measured-nothing",
       "title": "plumb-line 0.11.1 — a green job that measured nothing",
@@ -26,5 +32,5 @@
       "url": "https://github.com/slopstopper/plumb-line/blob/main/docs/content/2026-08-15-plumb-line-0.9.0-the-front-door.md"
     }
   ],
-  "lastSynced": null
+  "lastSynced": "2026-09-25T08:55:37Z"
 }
