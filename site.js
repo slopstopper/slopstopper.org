@@ -141,15 +141,13 @@
     document.body.classList.add('pl-hanging');
     window.dispatchEvent(new Event('resize'));   // let the swing code re-measure its length
   }
-  // detection: the bob holds amber for as long as the law block (the taint example) is in view
-  var law=document.getElementById('law');
-  if(law){
-    if('IntersectionObserver' in window){
-      var io=new IntersectionObserver(function(es){
-        es.forEach(function(en){ fig.classList.toggle('detect', en.isIntersecting && en.intersectionRatio>=0.25); });
-      }, {threshold:[0, 0.25, 0.5]});
-      io.observe(law);
-    } else { fig.classList.add('detect'); }
+  // detection flash: the bob goes amber and the rays fire when you tap Plumb (owner, 2026-09-25:
+  // a tap is more intuitive than a scroll position). Restart cleanly if tapped mid-flash.
+  var flashT=null;
+  function flash(){
+    fig.classList.remove('detect'); void fig.offsetWidth;   // reflow so the rays animation restarts
+    fig.classList.add('detect');
+    clearTimeout(flashT); flashT=setTimeout(function(){ fig.classList.remove('detect'); }, 1400);   // = pl-rays duration
   }
   // limbs: each arm and leg is its own small pendulum, driven by the body's swing and
   // settling at its own rate, so a poke makes Plumb flail and then hang still again
@@ -179,7 +177,7 @@
     line.addEventListener('plumb-move', limbsGo);
     limbsGo();
     // a tap on Plumb himself pokes the line, on any device (the grab strip is desktop-only)
-    fig.addEventListener('pointerdown', function(e){ if(line._kick) line._kick(e.clientX); });
+    fig.addEventListener('pointerdown', function(e){ if(line._kick) line._kick(e.clientX); flash(); });
   }
 })();
 // ---- feedback page: show the sent panel after Formspree returns to ?sent=1 ----
