@@ -2,6 +2,18 @@
   "source": "slopstopper/plumb-line:docs/content",
   "pieces": [
     {
+      "date": "2026-09-26",
+      "slug": "plumb-line-0.11.4-guards-that-fail-closed",
+      "title": "plumb-line 0.11.4 — guards that fail closed",
+      "url": "https://github.com/slopstopper/plumb-line/blob/main/docs/content/2026-09-26-plumb-line-0.11.4-guards-that-fail-closed.md"
+    },
+    {
+      "date": "2026-09-25",
+      "slug": "plumb-line-0.11.3-pages-that-match-the-code",
+      "title": "plumb-line 0.11.3 — pages that match the code",
+      "url": "https://github.com/slopstopper/plumb-line/blob/main/docs/content/2026-09-25-plumb-line-0.11.3-pages-that-match-the-code.md"
+    },
+    {
       "date": "2026-09-25",
       "slug": "plumb-line-0.11.2-the-checkers-own-blind-spot",
       "title": "plumb-line 0.11.2 — the checker's own blind spot",
@@ -32,5 +44,5 @@
       "url": "https://github.com/slopstopper/plumb-line/blob/main/docs/content/2026-08-15-plumb-line-0.9.0-the-front-door.md"
     }
   ],
-  "lastSynced": "2026-09-25T08:55:37Z"
+  "lastSynced": "2026-09-25T18:48:06Z"
 }
